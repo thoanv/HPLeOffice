@@ -1,0 +1,1 @@
+exports.BASE_URL = 'https://eoffice.haiphatland.com.vn/local/components/hpl.api';
