@@ -6,10 +6,9 @@ import {
     StyleSheet
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import Home from '../screens/Home';
 import TabTops from "./tabTop";
 import Notification from '../screens/Notification';
-import Profile from '../screens/Profile';
+import Procedure from '../screens/Procedure';
 import { COLORS, icons, FONTS } from '../constants';
 
 const Tab = createBottomTabNavigator()
@@ -45,6 +44,29 @@ const Tabs = () => {
                 }}
             />
             <Tab.Screen
+                name="Procedure"
+                component={Procedure}
+                options={{
+                    tabBarIcon: ({focused}) => (
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                            <Image 
+                                source={icons.process}
+                                resizeMode="contain"
+                                style={{
+                                    width: 22,
+                                    height: 22,
+                                    tintColor: focused ? COLORS.primary : COLORS.black
+                                }}
+                            />
+                            <Text style={{color: focused ? COLORS.primary : COLORS.black, ...FONTS.body6}}>
+                                Quy trình
+                            </Text>
+                        </View>
+                    ),
+                    headerShown: false
+                }}
+            />
+            <Tab.Screen
                 name="Notification"
                 component={Notification}
                 options={{
@@ -67,29 +89,7 @@ const Tabs = () => {
                     headerShown: false
                 }}
             />
-            <Tab.Screen
-                name="Profile "
-                component={Profile }
-                options={{
-                    tabBarIcon: ({focused}) => (
-                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                            <Image 
-                                source={icons.user}
-                                resizeMode="contain"
-                                style={{
-                                    width: 22,
-                                    height: 22,
-                                    tintColor: focused ? COLORS.primary : COLORS.black
-                                }}
-                            />
-                            <Text style={{color: focused ? COLORS.primary : COLORS.black, ...FONTS.body6}}>
-                                Tài khoản
-                            </Text>
-                        </View>
-                    ),
-                    headerShown: false
-                }}
-            />
+            
             
         </Tab.Navigator>
     )

@@ -20,30 +20,29 @@ const PendingSign = ({navigation}) => {
     const [page, setPage] = useState(0)
     const [empty, setEmpty] = useState(false);
     useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            async function fetchList() {
-                setIsLoadingData(true)
-                let payload = {
-                    'type' : 'all',
-                    'page': page,
-                };
-                let url = '/signature-lists-stage-pending.php';
-                POST_DATA(`${url}`, payload).then(res => {
-                    if(res['success'] == 1){
-                        setDataSignatures(res['data']);
-                        setIsLoadingData(false)
-                        setPage(page+1);
-                    }
-                }).catch((error)=>{
-                    console.log("Api call error");
-                    alert(error.message);
-                });
-            }
-            fetchList();
-        });
-        return unsubscribe;
-
-    }, [navigation]);
+            const unsubscribe = navigation.addListener('focus', () => {
+                async function fetchList() {
+                    setIsLoadingData(true)
+                    let payload = {
+                        'type' : 'all',
+                        'page': page,
+                    };
+                    let url = '/signature-lists-stage-pending.php';
+                    POST_DATA(`${url}`, payload).then(res => {
+                        if(res['success'] == 1){
+                            setDataSignatures(res['data']);
+                            setIsLoadingData(false)
+                            setPage(page+1);
+                        }
+                    }).catch((error)=>{
+                        console.log("Api call error");
+                        alert(error.message);
+                    });
+                }
+                fetchList();
+            });
+            return unsubscribe;
+    }, []);
     const fetchData =  () =>  {
         let pa = 0;
         let payload = {
@@ -102,7 +101,6 @@ const PendingSign = ({navigation}) => {
     }
     const _onEndReachedLoad = () => {
         setIsLoading(true)
-        console.log(isLoading)
         let payload = {
             'type' : 'all',
             'page': page,

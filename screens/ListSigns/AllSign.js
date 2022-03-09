@@ -98,14 +98,12 @@ const AllSign = ({navigation}) => {
     }
     const _onEndReachedLoad = () => {
         setIsLoading(true)
-        console.log(isLoading)
         let payload = {
             'type' : 'all',
             'page': page,
         };
         let url = '/signature-lists.php';
         POST_DATA(`${url}`, payload).then(res => {
-            console.log(res)
             if(res['success'] == 1){
                 if(res['data'].length){
                     const result =  dataSignatures.concat(res['data']);
@@ -117,7 +115,6 @@ const AllSign = ({navigation}) => {
                 
             }
             setIsLoading(false)
-            console.log(isLoading)
          }).catch((error)=>{
             console.log("Api call error");
             alert(error.message);

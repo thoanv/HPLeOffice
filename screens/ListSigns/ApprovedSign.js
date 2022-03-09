@@ -29,7 +29,6 @@ const ApprovedSign   = ({navigation}) => {
                 };
                 let url = '/signature-lists-by-stage.php';
                 POST_DATA(`${url}`, payload).then(res => {
-                    console.log(res)
                     if(res['success'] == 1){
                         setDataSignatures(res['data']);
                         setIsLoadingData(false)
@@ -44,7 +43,7 @@ const ApprovedSign   = ({navigation}) => {
           });
           return unsubscribe;
         
-    }, [navigation]);
+    }, []);
  
     const fetchData =  () =>  {
         let pa = 0;
@@ -104,7 +103,6 @@ const ApprovedSign   = ({navigation}) => {
     }
     const _onEndReachedLoad = () => {
         setIsLoading(true)
-        console.log(isLoading)
         let payload = {
             'type' : 'approved',
             'page': page,

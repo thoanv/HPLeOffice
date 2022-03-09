@@ -29,7 +29,6 @@ const DoNotSign   = ({navigation}) => {
                 };
                 let url = '/signature-lists-by-stage.php';
                 POST_DATA(`${url}`, payload).then(res => {
-                    console.log(res)
                     if(res['success'] == 1){
                         setDataSignatures(res['data']);
                         setIsLoadingData(false)
@@ -44,7 +43,7 @@ const DoNotSign   = ({navigation}) => {
           });
           return unsubscribe;
         
-    }, [navigation]);
+    }, []);
  
     const fetchData =  () =>  {
         let pa = 0;
@@ -104,7 +103,6 @@ const DoNotSign   = ({navigation}) => {
     }
     const _onEndReachedLoad = () => {
         setIsLoading(true)
-        console.log(isLoading)
         let payload = {
             'type' : 'donot',
             'page': page,

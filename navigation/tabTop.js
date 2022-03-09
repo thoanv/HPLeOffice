@@ -34,7 +34,7 @@ import {
       />
     );
 };
-const TabTops = () => {
+const TabTops = ({navigation}) => {
  const [user, setUser] = useState({});
  const [isLoadingData, setIsLoadingData] = useState(false)
  useEffect(() => {
@@ -82,13 +82,15 @@ const TabTops = () => {
             ):(
                 <>
                 <View style={{flex: 1}}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Avatar.Image size={40} source={{uri: user.PATH}} />
-                        <View style={{marginLeft: SIZES.padding}}>
-                            <Text style={{...FONTS.h6}}>{user.FULLNAME}</Text>
-                            <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{user.WORK_POSITION ? user.WORK_POSITION : 'Nhân viên'}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Avatar.Image size={40} source={{uri: user.PATH}} />
+                            <View style={{marginLeft: SIZES.padding}}>
+                                <Text style={{...FONTS.h6}}>{user.FULLNAME}</Text>
+                                <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{user.WORK_POSITION ? user.WORK_POSITION : 'Nhân viên'}</Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 </>
             )}

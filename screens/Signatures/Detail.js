@@ -71,16 +71,16 @@ const Detail = ({ route, navigation }) => {
     }
     const actionChange = (stage_id) => {
         console.log(stage_id);
+        const stage_current = data.STAGE;
         setModalVisible(!isModalVisible);
         setIsLoading(false)
         let id_rpa = route.params.ID_RPA;
         let id_task = route.params.ID_TASK;
-        let stage_id_current = data.STAGE.ID;
         let payload = {
             'rpa' : id_rpa,
             'task': id_task,
             'stage_id_next' : stage_id,
-            'stage_id_current' : stage_id_current
+            'stage_current' : stage_current
         };
         console.log(payload);
         let url = `/signature-detail.php`;
