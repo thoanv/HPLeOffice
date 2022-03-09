@@ -4,7 +4,8 @@ import {
     Image,
     TouchableOpacity,
     Text,
-    StyleSheet
+    StyleSheet,
+    SafeAreaView
 } from "react-native";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Avatar } from 'react-native-paper';
@@ -51,7 +52,7 @@ const TabTops = () => {
  }, [])
 
     return (
-        <>
+        <SafeAreaView style={styles.container}>
         <View
             style={{
                 flexDirection: 'row',
@@ -143,7 +144,7 @@ const TabTops = () => {
             <Tab.Screen name="Đã duyệt" component={ApprovedSign} />
             <Tab.Screen name="K.duyệt" component={DoNotSign} />
         </Tab.Navigator>
-    </>
+    </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({

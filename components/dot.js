@@ -6,7 +6,7 @@ import { SIZES, COLORS } from '../constants';
 
 const Dot = () => {
     return (
-        <View style={{ justifyContent: 'center', alignItems:'center', marginHorizontal: SIZES.padding}}>
+        <View style={{ justifyContent: 'center', alignItems:'center', marginHorizontal: SIZES.base}}>
             <View style={{width: 3, height: 3, backgroundColor: COLORS.darkgray, borderRadius: 3}}></View>
         </View>
     )

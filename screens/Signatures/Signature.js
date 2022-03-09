@@ -7,7 +7,8 @@ import {
     Image,
     Dimensions,
     ActivityIndicator,
-    Alert 
+    Alert,
+    SafeAreaView
 } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { POST_DATA } from '../ultils/api';
@@ -91,7 +92,7 @@ const Signature = ({ route, navigation }) => {
                     </TouchableOpacity>
 
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                            <Text style={{...FONTS.body3}}>Văn bản</Text>
+                            <Text style={{...FONTS.body3}}>Văn bản ký</Text>
                     </View>
 
                     {/* <TouchableOpacity
@@ -362,7 +363,7 @@ const Signature = ({ route, navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {/* Book Cover Section */}
             <View style={{flex: 1}}>
                 {renderHeader()}
@@ -378,7 +379,7 @@ const Signature = ({ route, navigation }) => {
                 </View>
             )}
             
-        </View>
+        </SafeAreaView>
     )
    
 }

@@ -7,7 +7,8 @@ import {
     Image,
     FlatList,
     ActivityIndicator,
-    Dimensions
+    Dimensions,
+    SafeAreaView
 } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { POST_DATA } from '../ultils/api';
@@ -160,8 +161,8 @@ const List = ({ route, navigation }) => {
                     _onEndReachedLoad()
                 }
                 ListFooterComponent={() => (empty == true ? 
-                    <View style={{justifyContent:'center', alignItems: 'center'}}><Text>Dữ liệu trống</Text></View> 
-                    : <PlaceholderItem />)}
+                    <View style={{justifyContent:'center', alignItems: 'center'}}><Text style={styles.emptyMessageStyle}>Dữ liệu trống</Text></View> 
+                    : null)}
                 renderItem={({item}) => {
                     return(
                         <ItemSign item={item} navigation={navigation} rpa={true}/>
@@ -171,9 +172,8 @@ const List = ({ route, navigation }) => {
         );
     }
 
-
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {/* Book Cover Section */}
             <View style={{flex: 1}}>
                 {renderHeader()}
@@ -198,7 +198,7 @@ const List = ({ route, navigation }) => {
                 )}
                
             </View>
-        </View>
+        </SafeAreaView>
     )
 
 }

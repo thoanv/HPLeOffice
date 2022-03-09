@@ -6,7 +6,8 @@ import {
     StyleSheet,
     FlatList,
     Dimensions,
-    Image
+    Image,
+    Platform
 } from 'react-native';
 import { Avatar } from 'react-native-paper';
 import { SIZES, COLORS, FONTS, icons } from '../constants';
@@ -31,13 +32,42 @@ const ItemSign = ({item,  navigation, rpa=false}) => {
                                     <Avatar.Image size={50} source={{uri: item.CREATED_BY.PATH}} />
                                     <View style={{justifyContent: 'center', alignItems: 'center', width: 100}}>
                                         <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body5, }}>{item.CREATED_BY.FULLNAME}</Text>
+                                        
+                                        <View style={{textAlign: 'justify'}}>
+                                            <Text numberOfLines={2} style={{color: COLORS.darkgrayText, ...FONTS.body6, lineHeight: 15, textTransform: 'capitalize'}}>{item.CREATED_BY.WORK_POSITION ? item.CREATED_BY.WORK_POSITION : 'Nhân viên'}</Text>
+                                        </View>
                                         <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body6, lineHeight: 15, textTransform: 'capitalize'}}>{item.CREATED_BY.WORK_DEPARTMENT}</Text>
                                     </View>
                                     </>
                                 )}
+                                {/* {item.DOCUMENT_SIGN && (
+                                    <View style={{
+                                        width: 27,
+                                        height: 27,
+                                        backgroundColor: COLORS.border,
+                                        position: 'absolute',
+                                        top: -7,
+                                        left: -7,
+                                        borderTopLeftRadius: SIZES.base,
+                                        borderBottomRightRadius: SIZES.base
+                                        }}>
+                                        <Image
+                                            source={icons.check}
+                                            resizeMode="contain"
+                                            style={{
+                                                width: 22,
+                                                height: 22,
+                                                marginLeft: 2,
+                                                marginTop: 2,
+                                                tintColor: COLORS.primary,
+                                            }}
+                                        />
+                                    </View>
+                                )} */}
                                 {item.DOCUMENT_SIGN && (
-                                    <View style={{width: 27,
-                                        height: 25,
+                                    <View style={{
+                                        width: 25,
+                                        height: 27,
                                         backgroundColor: COLORS.border,
                                         position: 'absolute',
                                         top: -8,
@@ -52,17 +82,19 @@ const ItemSign = ({item,  navigation, rpa=false}) => {
                                                 width: 22,
                                                 height: 22,
                                                 marginLeft: 2,
+                                                marginTop: 2,
                                                 tintColor: COLORS.primary,
-                                                
-                                                
-                                    
                                             }}
                                         />
                                     </View>
                                 )}
                             </View>
                             <View style={{borderLeftWidth: 1, borderLeftColor: COLORS.border, paddingLeft: SIZES.base, width: width_screen-140}}>
-                                <Text numberOfLines={2} style={{color: COLORS.black, ...FONTS.body4, marginBottom: SIZES.base-3}}>{item.NAME_TASK}</Text>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Text numberOfLines={2} style={{color: COLORS.black, ...FONTS.body4, marginBottom: SIZES.base-3}}>{item.NAME_TASK}</Text>
+
+                                    
+                                </View>
                                 {!rpa && (
                                     <TouchableOpacity 
                                         onPress={()=> navigation.navigate("List", {
@@ -77,7 +109,7 @@ const ItemSign = ({item,  navigation, rpa=false}) => {
                                 {item.STAGE && (
                                     <View style={{flexDirection: 'row'}}>
                                         <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body5, marginRight: SIZES.base}}>Giai đoạn:</Text>
-                                        <Text numberOfLines={1} style={{ ...FONTS.body6, color: COLORS.white, backgroundColor: `#${item.STAGE.COLOR}`, paddingHorizontal: SIZES.base, borderRadius: SIZES.padding*2}}>{item.STAGE.NAME}</Text>
+                                        <Text numberOfLines={1} style={{ ...FONTS.body6, color: COLORS.white, backgroundColor: `#${item.STAGE.COLOR}`, paddingHorizontal: SIZES.base, borderRadius: SIZES.padding, overflow: 'hidden',}}>{item.STAGE.NAME}</Text>
                                     </View>
                                 )}
                                 
@@ -134,6 +166,8 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white, 
         borderRadius: SIZES.base, 
         padding: SIZES.base,
+        borderColor: COLORS.border,
+        borderWidth: 2,
     },
     shadow: {
         shadowColor: "#000",
@@ -141,7 +175,7 @@ const styles = StyleSheet.create({
             width: 0,
             height: 10,
         },
-        shadowOpacity: 0.30,
+        shadowOpacity: Platform.OS === 'ios' ? 0.02 : 0.30,
         shadowRadius: 2,
 
         elevation: 2,

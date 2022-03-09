@@ -7,7 +7,8 @@ import {
     Image,
     Dimensions,
     ActivityIndicator,
-    Alert 
+    Alert,
+    SafeAreaView
 } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { POST_DATA } from '../ultils/api';
@@ -147,7 +148,7 @@ const ViewFile = ({ route, navigation }) => {
        
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {/* Book Cover Section */}
             <View style={{flex: 1}}>
                 {renderHeader()}
@@ -156,7 +157,7 @@ const ViewFile = ({ route, navigation }) => {
             <View style={{flex: 10}}>
                 {renderBody()}
             </View>
-        </View>
+        </SafeAreaView>
     )
    
 }

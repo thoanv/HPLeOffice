@@ -29,7 +29,8 @@ const location = require("../assets/icons/location.png");
 const padlock = require("../assets/icons/padlock.png");
 const right = require("../assets/icons/right.png");
 const home = require("../assets/icons/home.png");
-
+const check = require("../assets/icons/check.png");
+const position = require("../assets/icons/position.png");
 export default {
     back,
     bell,
@@ -61,5 +62,7 @@ export default {
     location,
     padlock,
     right,
-    home
+    home,
+    check,
+    position
 }
