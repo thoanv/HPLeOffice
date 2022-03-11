@@ -25,21 +25,21 @@ const Procedure = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         async function fetchList() {
-            // setIsLoadingData(true)
-            // let url = '/signature-list-proceduries.php';
-            // let payload = {
-            //     'page': page,
-            // };
-            // POST_DATA(`${url}`, payload ).then(res => {
-            //     if(res['success'] == 1){
-            //         setDataSignatures(res['data']);
-            //         setIsLoadingData(false)
-            //         setPage(page+1);
-            //     }
-            //  }).catch((error)=>{
-            //     console.log("Api call error");
-            //     alert(error.message);
-            //  });
+            setIsLoadingData(true)
+            let url = '/signature-list-proceduries.php';
+            let payload = {
+                'page': page,
+            };
+            POST_DATA(`${url}`, payload ).then(res => {
+                if(res['success'] == 1){
+                    setDataSignatures(res['data']);
+                    setIsLoadingData(false)
+                    setPage(page+1);
+                }
+             }).catch((error)=>{
+                console.log("Api call error");
+                alert(error.message);
+             });
         }
         fetchList();
     }, []);
@@ -57,16 +57,6 @@ const Procedure = ({navigation}) => {
                 >
                     <View style={{  textAlignVertical: 'center', textDecorationLine: 'line-through', marginTop: SIZES.padding, marginHorizontal: SIZES.base*2 }}>
                         <Text style={{...FONTS.h5, color: COLORS.white}}>Quy trình</Text>
-                        <TouchableOpacity style={{alignItems: 'flex-end'}}>
-                        <Image 
-                            source={icons.search}
-                            style={{
-                                width: 20,
-                                height: 20,
-                                tintColor: COLORS.white
-                            }}
-                        />
-                        </TouchableOpacity>
                     </View>
                    
                 </LinearGradient>
@@ -291,9 +281,7 @@ const Procedure = ({navigation}) => {
                                 renderItem={renderItemChild}
                                 data={item.STORES}
                                 keyExtractor={item_store => `a${item_store.ID_TASK}_${item_store.ID_RPA}`}
-                                ListFooterComponent={() => (empty == true ? 
-                                    <View style={{justifyContent:'center', alignItems: 'center'}}><Text>Dữ liệu trống</Text></View> 
-                                    : <PlaceholderItem/>)}
+                                
                                     />
                         </View>
                     
@@ -307,6 +295,9 @@ const Procedure = ({navigation}) => {
                     renderItem={renderItem}
                     data={dataSignatures}
                     keyExtractor={item => `a${item.ID_RPA}`}
+                    ListFooterComponent={() => (empty == true ? 
+                        <View style={{justifyContent:'center', alignItems: 'center'}}><Text>Dữ liệu trống</Text></View> 
+                        : <PlaceholderItem/>)}
                 />
             </View>
         )
