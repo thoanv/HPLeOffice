@@ -118,6 +118,7 @@ const Procedure = ({navigation}) => {
 
         const renderItemChild = (item_store, index_store) => {
             let value = item_store.item
+            const path = value.CREATED_BY.PATH ? {uri: value.CREATED_BY.PATH} : icons.user;
            return (
             <TouchableOpacity
                 style={{
@@ -134,71 +135,71 @@ const Procedure = ({navigation}) => {
             >
                 <View style={styles.cardShadow}>
                     <View style={{marginRight: SIZES.base, justifyContent: 'center', alignItems: 'center'}}>
-                                {value.CREATED_BY && (
-                                    <>
-                                    <Avatar.Image size={50} source={{uri: value.CREATED_BY.PATH}} />
-                                    <View style={{justifyContent: 'center', alignItems: 'center', width: 100}}>
-                                        <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body5, }}>{value.CREATED_BY.FULLNAME}</Text>
-                                        
-                                        <View style={{textAlign: 'justify'}}>
-                                            <Text numberOfLines={2} style={{color: COLORS.darkgrayText, ...FONTS.body6, lineHeight: 15, textTransform: 'capitalize'}}>{value.CREATED_BY.WORK_POSITION ? value.CREATED_BY.WORK_POSITION : 'Nhân viên'}</Text>
-                                        </View>
-                                        <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body6, lineHeight: 15, textTransform: 'capitalize'}}>{value.CREATED_BY.WORK_DEPARTMENT}</Text>
-                                    </View>
-                                    </>
-                                )}
-                                {/* {item.DOCUMENT_SIGN && (
-                                    <View style={{
-                                        width: 27,
-                                        height: 27,
-                                        backgroundColor: COLORS.border,
-                                        position: 'absolute',
-                                        top: -7,
-                                        left: -7,
-                                        borderTopLeftRadius: SIZES.base,
-                                        borderBottomRightRadius: SIZES.base
-                                        }}>
-                                        <Image
-                                            source={icons.check}
-                                            resizeMode="contain"
-                                            style={{
-                                                width: 22,
-                                                height: 22,
-                                                marginLeft: 2,
-                                                marginTop: 2,
-                                                tintColor: COLORS.primary,
-                                            }}
-                                        />
-                                    </View>
-                                )} */}
-                                {value.DOCUMENT_SIGN && (
-                                    <View style={{
-                                        width: 25,
-                                        height: 27,
-                                        backgroundColor: COLORS.border,
-                                        position: 'absolute',
-                                        top: -8,
-                                        left: -8,
-                                        borderTopLeftRadius: SIZES.base,
-                                        borderBottomRightRadius: SIZES.base
-                                        }}>
-                                        <Image
-                                            source={icons.more}
-                                            resizeMode="contain"
-                                            style={{
-                                                width: 22,
-                                                height: 22,
-                                                marginLeft: 2,
-                                                marginTop: 2,
-                                                tintColor: COLORS.primary,
-                                            }}
-                                        />
-                                    </View>
-                                )}
+                        {value.CREATED_BY && (
+                            <>
+                            <Avatar.Image size={50} style={{backgroundColor: COLORS.border}} source={path} />
+                            <View style={{justifyContent: 'center', alignItems: 'center', width: 100}}>
+                                <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body5, }}>{value.CREATED_BY.FULLNAME}</Text>
+                                
+                                <View style={{textAlign: 'justify'}}>
+                                    <Text numberOfLines={2} style={{color: COLORS.darkgrayText, ...FONTS.body6, lineHeight: 15, textTransform: 'capitalize'}}>{value.CREATED_BY.WORK_POSITION ? value.CREATED_BY.WORK_POSITION : 'Nhân viên'}</Text>
+                                </View>
+                                <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body6, lineHeight: 15, textTransform: 'capitalize'}}>{value.CREATED_BY.WORK_DEPARTMENT}</Text>
+                            </View>
+                            </>
+                        )}
+                        {/* {item.DOCUMENT_SIGN && (
+                            <View style={{
+                                width: 27,
+                                height: 27,
+                                backgroundColor: COLORS.border,
+                                position: 'absolute',
+                                top: -7,
+                                left: -7,
+                                borderTopLeftRadius: SIZES.base,
+                                borderBottomRightRadius: SIZES.base
+                                }}>
+                                <Image
+                                    source={icons.check}
+                                    resizeMode="contain"
+                                    style={{
+                                        width: 22,
+                                        height: 22,
+                                        marginLeft: 2,
+                                        marginTop: 2,
+                                        tintColor: COLORS.primary,
+                                    }}
+                                />
+                            </View>
+                        )} */}
+                        {value.DOCUMENT_SIGN && (
+                            <View style={{
+                                width: 25,
+                                height: 27,
+                                backgroundColor: COLORS.border,
+                                position: 'absolute',
+                                top: -8,
+                                left: 0,
+                                borderTopLeftRadius: SIZES.base,
+                                borderBottomRightRadius: SIZES.base
+                                }}>
+                                <Image
+                                    source={icons.more}
+                                    resizeMode="contain"
+                                    style={{
+                                        width: 22,
+                                        height: 22,
+                                        marginLeft: 2,
+                                        marginTop: 2,
+                                        tintColor: COLORS.primary,
+                                    }}
+                                />
+                            </View>
+                        )}
                     </View>
-                    <View style={{borderLeftWidth: 1, borderLeftColor: COLORS.border, paddingLeft: SIZES.base, width: width_screen-140}}>
+                    <View style={{borderLeftWidth: 1, borderLeftColor: COLORS.border, paddingLeft: SIZES.base, width: width_screen-200}}>
                         <View style={{flexDirection: 'row'}}>
-                            <Text numberOfLines={2} style={{color: COLORS.black, ...FONTS.body4, marginBottom: SIZES.base-3}}>{value.NAME_TASK}</Text>
+                            <Text numberOfLines={2} style={{color: COLORS.black, ...FONTS.body4, marginBottom: SIZES.base-3, height: 50}}>{value.NAME_TASK}</Text>
                         </View>
                         
                         <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body5}}>Ngày trình: {value.CREATED_AT}</Text>
@@ -270,19 +271,12 @@ const Procedure = ({navigation}) => {
                         {/* Books */}
                         <View style={{flex: 1}}>
                             <FlatList
-                                refreshing={isFetching}
-                                onRefresh={() => _handleOnRefresh()}
-                                onEndReachedThreshold={0.5}
-                                onEndReached={() => 
-                                    _onEndReachedLoad()
-                                }
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
                                 renderItem={renderItemChild}
                                 data={item.STORES}
                                 keyExtractor={item_store => `a${item_store.ID_TASK}_${item_store.ID_RPA}`}
-                                
-                                    />
+                            />
                         </View>
                     
                 </View>
@@ -291,6 +285,12 @@ const Procedure = ({navigation}) => {
         return (
             <View style={{ marginTop: SIZES.padding}}>
                 <FlatList
+                    refreshing={isFetching}
+                    onRefresh={() => _handleOnRefresh()}
+                    onEndReachedThreshold={0.5}
+                    onEndReached={() => 
+                        _onEndReachedLoad()
+                    }
                     showsHorizontalScrollIndicator={false}
                     renderItem={renderItem}
                     data={dataSignatures}

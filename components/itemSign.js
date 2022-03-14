@@ -13,8 +13,9 @@ import { Avatar } from 'react-native-paper';
 import { SIZES, COLORS, FONTS, icons } from '../constants';
 const width_screen  = Dimensions.get('window').width;
 const ItemSign = ({item,  navigation, rpa=false}) => {
-    console.log(item)
+    
     if(item){
+        const path = item.CREATED_BY.PATH ? {uri: item.CREATED_BY.PATH} : icons.user;
         return (
             <View style={styles.container}>
                 <View style={[styles.boxItem, styles.shadow]}>
@@ -29,7 +30,7 @@ const ItemSign = ({item,  navigation, rpa=false}) => {
                             <View style={{marginRight: SIZES.base, justifyContent: 'center', alignItems: 'center'}}>
                                 {item.CREATED_BY && (
                                     <>
-                                    <Avatar.Image size={50} source={{uri: item.CREATED_BY.PATH}} />
+                                    <Avatar.Image size={50} style={{backgroundColor: COLORS.border}} source={path} />
                                     <View style={{justifyContent: 'center', alignItems: 'center', width: 100}}>
                                         <Text numberOfLines={1} style={{color: COLORS.darkgrayText, ...FONTS.body5, }}>{item.CREATED_BY.FULLNAME}</Text>
                                         

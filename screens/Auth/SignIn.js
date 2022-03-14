@@ -9,6 +9,7 @@ import {
     ScrollView,
     Platform,
     StyleSheet,
+    SafeAreaView
 } from 'react-native';
 
 import { COLORS, FONTS, icons, images, SIZES } from '../../constants';
@@ -55,10 +56,12 @@ const SignIn = ( { navigation } ) => {
             >
                 {/* Full name */}
                 <View style={{
-                    marginTop: SIZES.padding * 8
+                    marginTop: SIZES.padding * 6
                 }}>
                     <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: SIZES.largeTitle}}>
-                        <Text style={{...FONTS.body1, color: COLORS.white}}>Đăng nhập</Text>
+                        <Text style={{...FONTS.h1, color: COLORS.white, paddingBottom: SIZES.base}}>HaiPhatLand Sign</Text>
+                        <Text style={{...FONTS.body2, color: COLORS.white}}>Đăng nhập</Text>
+                    
                         <View style={{
                                 shadowColor: "#000",
                                 shadowOffset: {
@@ -70,17 +73,18 @@ const SignIn = ( { navigation } ) => {
 
                                 elevation: 10,
                                 backgroundColor: COLORS.white, 
-                                padding: SIZES.padding*2, 
-                                borderRadius: 20, 
+                                padding: 3, 
+                                borderRadius: 8, 
                                 marginTop: SIZES.padding*3}}>
                             <Image 
-                                source={images.logo}
+                                source={images.logo_app}
                                 style={{
-                                    width: 50,
-                                    height: 50
+                                    width: 100,
+                                    height:100
                                 }}
                             />
                         </View>
+
                     </View>
                     <View>
                         <Image 
@@ -188,11 +192,12 @@ const SignIn = ( { navigation } ) => {
 
 
     return (
-        <KeyboardAvoidingView
+        <SafeAreaView
             behavior={Platform.OS === "ios" ? "padding" : null}
             style={{
                 flex: 1,
-                backgroundColor: COLORS.white
+                backgroundColor: COLORS.white,
+                flexDirection: 'column',
             }}
         >
             <LinearGradient
@@ -204,15 +209,14 @@ const SignIn = ( { navigation } ) => {
             >
                 {renderForm()}
                 {/* {renderButton()} */}
-                <View style={{alignItems: 'center', position: 'absolute', bottom: 10, left: '8%'}}>
-                    <Text style={{color: COLORS.white, marginBottom: 5, fontWeight: 'bold'}}>Hai Phat Land Sign</Text>
+                <View style={{flex: 1, alignItems: 'center',  justifyContent: 'flex-end', marginBottom: SIZES.base}}>
+                    <Text style={{color: COLORS.white, marginBottom: 5, fontWeight: 'bold'}}></Text>
                     <Text style={{color: COLORS.white}}>Copyright © 2022 Hai Phat Land - All Rights Reserved</Text>
                 </View>
             </LinearGradient>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
-
 const styles = StyleSheet.create({
     title: {
         color: COLORS.lightGreen,

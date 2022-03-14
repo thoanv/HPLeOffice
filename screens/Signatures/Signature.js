@@ -244,6 +244,7 @@ const Signature = ({ route, navigation }) => {
                 setNote(res.note);
             }
             setIsLoading(true);
+            console.log(res)
          }).catch((error)=>{
             console.log("Api call error");
             alert(error.message);

@@ -334,7 +334,7 @@ const Detail = ({ route, navigation }) => {
                             <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{item.CREATED_TIME}</Text>
                         </View>
                         <View style={{flexDirection:'row'}}>
-                            {(data.checkCreatedByAndUserSig == true && data.DOCUMENT_SIGN) && (
+                            {(data.checkCreatedByAndUserSig == true && data.DOCUMENT_SIGN && checkStageCurrents.includes(data.STAGE.ID)) && (
                                 <>
                                 <TouchableOpacity
                                     style={styles.button}
@@ -508,7 +508,7 @@ const Detail = ({ route, navigation }) => {
                                     width: 20,
                                     height: 20,
                                     position: 'absolute',
-                                    right: Platform.OS === 'ios' ? 25 : 10,
+                                    right: Platform.OS === 'ios' ? 25 : 25,
                                     top: -5,
                                 }}
                             />
