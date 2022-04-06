@@ -176,7 +176,7 @@ const Detail = ({ route, navigation }) => {
                     </TouchableOpacity>
 
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                            <Text numberOfLines={1} style={{...FONTS.body3,}}>{data.NAME_TASK}</Text>
+                            <Text numberOfLines={1} style={{...FONTS.body3, color: COLORS.black}}>{data.NAME_TASK}</Text>
                     </View>
 
                     {/* <TouchableOpacity
@@ -211,10 +211,10 @@ const Detail = ({ route, navigation }) => {
                             borderRadius: SIZES.base
                         }, styles.shadow]}
                     >
-                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Ghi chú</Text>
+                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Ghi chú</Text>
                         <BorderHorizontal/>
                         <View style={{flexDirection: 'row', marginTop: SIZES.base}}>
-                            <Text>
+                            <Text style={{color: COLORS.black}}>
                                 {data.NOTE}
                             </Text>
                         </View>
@@ -251,7 +251,7 @@ const Detail = ({ route, navigation }) => {
                         borderRadius: SIZES.base
                     }, styles.shadow]}
                 >
-                    <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Tiến trình của các giai đoạn</Text>
+                    <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Tiến trình của các giai đoạn</Text>
                     <BorderHorizontal/>
                     <View style={{flexDirection: 'row', marginTop: SIZES.base}}>
                     <FlatList
@@ -281,7 +281,7 @@ const Detail = ({ route, navigation }) => {
                                 borderRadius: SIZES.base
                             }, styles.shadow]}
                         >
-                            <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Thông tin công việc</Text>
+                            <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Thông tin công việc</Text>
                             <BorderHorizontal/>
                             {itemTaskUser(icons.user, 'Người tạo', nameUser  )}
                             {itemTask(icons.more, 'Phòng ban', created_at.WORK_DEPARTMENT)}
@@ -385,7 +385,7 @@ const Detail = ({ route, navigation }) => {
                             borderRadius: SIZES.base
                         }, styles.shadow]}
                     >
-                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Văn bản ký ({data.TOTAL_FILE})</Text>
+                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Văn bản ký ({data.TOTAL_FILE})</Text>
                         <BorderHorizontal/>
                   
                         <FlatList
@@ -467,7 +467,7 @@ const Detail = ({ route, navigation }) => {
                             borderRadius: SIZES.base
                         }, styles.shadow]}
                     >
-                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Văn bản đính kèm ({data.COUNTFILEATTACHS})</Text>
+                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Văn bản đính kèm ({data.COUNTFILEATTACHS})</Text>
                         <BorderHorizontal/>
                   
                         <FlatList
@@ -516,10 +516,10 @@ const Detail = ({ route, navigation }) => {
                         </View>
                         <View style={{paddingBottom: SIZES.base}}>
                             <View style={{flexDirection: 'column'}}>
-                                <Text style={{fontWeight: 'bold'}}>{user.LAST_NAME} {user.NAME} </Text>
+                                <Text style={{fontWeight: 'bold', color: COLORS.black}}>{user.LAST_NAME} {user.NAME} </Text>
                                 
                                 <View style={{flexDirection: 'row'}}>
-                                <Text style={{...FONTS.body4,fontWeight: 'bold'}}>@{user.LOGIN}</Text>
+                                <Text style={{...FONTS.body4,fontWeight: 'bold', color: COLORS.black}}>@{user.LOGIN}</Text>
                                 <Dot/>
                                 <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{user.WORK_POSITION ? user.WORK_POSITION : 'Nhân viên'}</Text>
                                 
@@ -575,7 +575,7 @@ const Detail = ({ route, navigation }) => {
                                 borderRadius: SIZES.base
                             }, styles.shadow]}
                         >
-                            <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Người theo dõi</Text>
+                            <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Người theo dõi</Text>
                             <BorderHorizontal/>
                             <View style={{paddingVertical: SIZES.base, flexDirection: 'row'}}>
                             <View>
@@ -594,11 +594,11 @@ const Detail = ({ route, navigation }) => {
                             </View>
                             <View style={{paddingBottom: SIZES.base}}>
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text style={{fontWeight: 'bold'}}>{follow.FULLNAME} </Text>
+                                    <Text style={{fontWeight: 'bold', color: COLORS.black}}>{follow.FULLNAME} </Text>
                                 </View>
                                 
                                 <View style={{flexDirection: 'row'}}>
-                                    <Text style={{...FONTS.body4, fontWeight: 'bold'}}>@{follow.LOGIN}</Text>
+                                    <Text style={{...FONTS.body4, fontWeight: 'bold', color: COLORS.black}}>@{follow.LOGIN}</Text>
                                     <Dot />
                                     <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{follow.WORK_POSITION ? follow.WORK_POSITION : 'Nhân viên'}</Text>
                                     
@@ -632,15 +632,15 @@ const Detail = ({ route, navigation }) => {
                             marginRight: SIZES.base
                         }}
                     />
-                    <Text style={{...FONTS.body4, fontWeight: 'bold'}}>{title}</Text>
+                    <Text style={{...FONTS.body4, fontWeight: 'bold', color: COLORS.black}}>{title}</Text>
                 </View>
                 <View>
                     <View style={{flexDirection: 'row'}}>
-                        <Text style={{...FONTS.body4}}>{value} </Text>
+                        <Text style={{...FONTS.body4, color: COLORS.black}}>{value} </Text>
                         {/* <Dot />
                         <Text>@{login}</Text> */}
                     </View>
-                    {position !== '' && (<Text>{position}</Text>)}
+                    {position !== '' && (<Text style={{color: COLORS.black}}>{position}</Text>)}
                 </View>
             </View>
         )
@@ -664,10 +664,10 @@ const Detail = ({ route, navigation }) => {
                             marginRight: SIZES.base
                         }}
                     />
-                    <Text style={{...FONTS.body4, fontWeight: 'bold'}}>{title}</Text>
+                    <Text style={{...FONTS.body4, fontWeight: 'bold', color: COLORS.black}}>{title}</Text>
                 </View>
                 <View>
-                    <Text>{value}</Text>
+                    <Text style={{color: COLORS.black}}>{value}</Text>
                 </View>
             </View>
         )

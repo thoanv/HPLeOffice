@@ -86,7 +86,7 @@ const TabTops = ({navigation}) => {
                         <View style={{flexDirection: 'row'}}>
                             <Avatar.Image size={40} source={{uri: user.PATH}} />
                             <View style={{marginLeft: SIZES.padding}}>
-                                <Text style={{...FONTS.h6}}>{user.FULLNAME}</Text>
+                                <Text style={{...FONTS.h6, color: COLORS.black}}>{user.FULLNAME}</Text>
                                 <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{user.WORK_POSITION ? user.WORK_POSITION : 'Nhân viên'}</Text>
                             </View>
                         </View>

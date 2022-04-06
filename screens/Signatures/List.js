@@ -84,7 +84,7 @@ const List = ({ route, navigation }) => {
                     </TouchableOpacity>
 
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                            <Text numberOfLines={1} style={{...FONTS.body3}}>{title}</Text>
+                            <Text numberOfLines={1} style={{...FONTS.body3, color: COLORS.black}}>{title}</Text>
                     </View>
                 </View>
             </View>
@@ -161,7 +161,7 @@ const List = ({ route, navigation }) => {
                     _onEndReachedLoad()
                 }
                 ListFooterComponent={() => (empty == true ? 
-                    <View style={{justifyContent:'center', alignItems: 'center'}}><Text style={styles.emptyMessageStyle}>Dữ liệu trống</Text></View> 
+                    <View style={{justifyContent:'center', alignItems: 'center'}}><Text style={{color: COLORS.black}}>Dữ liệu trống</Text></View> 
                     : null)}
                 renderItem={({item}) => {
                     return(

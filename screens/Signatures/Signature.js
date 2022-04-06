@@ -92,7 +92,7 @@ const Signature = ({ route, navigation }) => {
                     </TouchableOpacity>
 
                     <View style={{flex: 1, justifyContent: 'center'}}>
-                            <Text style={{...FONTS.body3}}>Văn bản ký</Text>
+                            <Text style={{...FONTS.body3, color: COLORS.black}}>Văn bản ký</Text>
                     </View>
 
                     {/* <TouchableOpacity

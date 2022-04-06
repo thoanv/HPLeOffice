@@ -82,7 +82,7 @@ const ViewFile = ({ route, navigation }) => {
                     </TouchableOpacity>
 
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{...FONTS.h3,}}>Văn bản</Text>
+                            <Text style={{...FONTS.h3, color: COLORS.black}}>Văn bản</Text>
                     </View>
 
                     <TouchableOpacity

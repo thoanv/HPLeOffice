@@ -31,6 +31,7 @@ const right = require("../assets/icons/right.png");
 const home = require("../assets/icons/home.png");
 const check = require("../assets/icons/check.png");
 const position = require("../assets/icons/position.png");
+const open_box = require("../assets/icons/open-box.png");
 export default {
     back,
     bell,
@@ -64,5 +65,6 @@ export default {
     right,
     home,
     check,
-    position
+    position,
+    open_box
 }

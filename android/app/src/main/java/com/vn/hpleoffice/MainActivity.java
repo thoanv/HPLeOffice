@@ -1,4 +1,4 @@
-package com.hplsign;
+package com.vn.hpleoffice;
 
 import com.facebook.react.ReactActivity;
 

@@ -59,7 +59,7 @@ const SignIn = ( { navigation } ) => {
                     marginTop: SIZES.padding * 6
                 }}>
                     <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: SIZES.largeTitle}}>
-                        <Text style={{...FONTS.h1, color: COLORS.white, paddingBottom: SIZES.base}}>HaiPhatLand Sign</Text>
+                        <Text style={{...FONTS.h1, color: COLORS.white, paddingBottom: SIZES.base}}>Hải Phát Land eOffice</Text>
                         <Text style={{...FONTS.body2, color: COLORS.white}}>Đăng nhập</Text>
                     
                         <View style={{

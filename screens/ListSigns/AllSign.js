@@ -4,7 +4,8 @@ import {
     SafeAreaView,
     FlatList,
     StyleSheet,
-    Text
+    Text,
+    Image
 } from 'react-native';
 import { icons, COLORS, images, SIZES, FONTS } from '../../constants'
 import { POST_DATA } from '../ultils/api';
@@ -19,6 +20,7 @@ const AllSign = ({navigation}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(0)
     const [empty, setEmpty] = useState(false);
+    const [emptyFirst, setEmptyFirst] = useState(false);
     useEffect(() => {
         async function fetchList() {
             setIsLoadingData(true)
@@ -29,9 +31,13 @@ const AllSign = ({navigation}) => {
             let url = '/signature-lists.php';
             POST_DATA(`${url}`, payload).then(res => {
                 if(res['success'] == 1){
-                    setDataSignatures(res['data']);
+                    if(res['data'].length){
+                        setDataSignatures(res['data']);
+                        setPage(page+1);
+                    }else{
+                        setEmptyFirst(true)
+                    }
                     setIsLoadingData(false)
-                    setPage(page+1);
                 }
              }).catch((error)=>{
                 console.log("Api call error");
@@ -52,7 +58,7 @@ const AllSign = ({navigation}) => {
             if(res['success'] == 1){
                 setDataSignatures(res['data']);
             }
-             setPage(pa+1);
+            setPage(pa+1);
             setIsFetching(false);
             setIsLoadingData(false)
          }).catch((error)=>{
@@ -63,12 +69,28 @@ const AllSign = ({navigation}) => {
     function renderDataSection () {
 
         const renderItem = ({item, index}) => {
-            return (
-                <ItemSign item={item} navigation={navigation} type={true} />
-            )
+            if(item){
+                return (
+                    <ItemSign item={item} navigation={navigation} type={true} />
+                )
+            }
         }
         return (
             <View style={{ marginTop: SIZES.padding}}>
+            {emptyFirst ? (
+                <View style={{justifyContent: 'center', alignItems: 'center', position: 'absolute', left: '40%', top: 200}}>
+                <Image 
+                    source={icons.open_box}
+                    resizeMode="cover"
+                    style= {{
+                        width: 100,
+                        height: 100,
+                        tintColor: COLORS.primary
+                    }}
+                />
+                <Text style={{color: COLORS.black, ...FONTS.h4, marginTop: SIZES.padding*2}}>Dữ liệu trống</Text>
+                </View>
+            ): (
                 <FlatList
                     refreshing={isFetching}
                     onRefresh={() => _handleOnRefresh()}
@@ -84,6 +106,8 @@ const AllSign = ({navigation}) => {
                     <View style={{justifyContent:'center', alignItems: 'center'}}><Text>Dữ liệu trống</Text></View> 
                     : <PlaceholderItem/>)}
                 />
+            )}
+                
             </View>
         )
     }
