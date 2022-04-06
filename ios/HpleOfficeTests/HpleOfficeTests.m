@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface HplSignTests : XCTestCase
+@interface HpleOfficeTests : XCTestCase
 
 @end
 
-@implementation HplSignTests
+@implementation HpleOfficeTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
