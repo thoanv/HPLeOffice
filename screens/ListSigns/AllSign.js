@@ -94,7 +94,7 @@ const AllSign = ({navigation}) => {
                 <FlatList
                     refreshing={isFetching}
                     onRefresh={() => _handleOnRefresh()}
-                    onEndReachedThreshold={0.5}
+                    onEndReachedThreshold={1.5}
                     onEndReached={() => 
                         _onEndReachedLoad()
                     }

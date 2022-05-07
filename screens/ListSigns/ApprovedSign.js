@@ -29,6 +29,7 @@ const ApprovedSign   = ({navigation}) => {
                     'type' : 'approved',
                     'page': page,
                 };
+                console.log(payload);
                 let url = '/signature-lists-by-stage.php';
                 POST_DATA(`${url}`, payload).then(res => {
                     if(res['success'] == 1){

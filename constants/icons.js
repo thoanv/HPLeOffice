@@ -32,7 +32,13 @@ const home = require("../assets/icons/home.png");
 const check = require("../assets/icons/check.png");
 const position = require("../assets/icons/position.png");
 const open_box = require("../assets/icons/open-box.png");
+const steering_wheel = require("../assets/icons/steering-wheel.png");
+const car = require("../assets/icons/car.png");
+const driver = require("../assets/icons/driver.png");
 export default {
+    steering_wheel,
+    car,
+    driver,
     back,
     bell,
     close,

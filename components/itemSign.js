@@ -93,8 +93,6 @@ const ItemSign = ({item,  navigation, rpa=false}) => {
                             <View style={{borderLeftWidth: 1, borderLeftColor: COLORS.border, paddingLeft: SIZES.base, width: width_screen-140}}>
                                 <View style={{flexDirection: 'row'}}>
                                     <Text numberOfLines={2} style={{color: COLORS.black, ...FONTS.body4, marginBottom: SIZES.base-3}}>{item.NAME_TASK}</Text>
-
-                                    
                                 </View>
                                 {!rpa && (
                                     <TouchableOpacity 

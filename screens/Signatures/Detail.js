@@ -28,26 +28,32 @@ const Detail = ({ route, navigation }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingData, setIsLoadingData] = useState(false);
     useEffect(() => {
-        setIsLoadingData(true)
-        let id_rpa = route.params.ID_RPA;
-        let id_task = route.params.ID_TASK;
-        let payload = {
-            'rpa' : id_rpa,
-            'task': id_task
-        };
-        let url = `/signature-detail.php`;
-        POST_DATA(`${url}`, payload).then(res => {
-            console.log(res['data'])
-            if(res['success'] == 1){
-                setData(res['data'])
-                setStages(res['stages'])
-                setIsLoadingData(false)
-                setCheckStageCurrents(res['checkStageCurrent'])
+        const unsubscribe = navigation.addListener('focus', () => {
+            async function fetchList() {
+                setIsLoadingData(true)
+                let id_rpa = route.params.ID_RPA;
+                let id_task = route.params.ID_TASK;
+                let payload = {
+                    'rpa' : id_rpa,
+                    'task': id_task
+                };
+                let url = `/signature-detail.php`;
+                POST_DATA(`${url}`, payload).then(res => {
+                    console.log(res['data'])
+                    if(res['success'] == 1){
+                        setData(res['data'])
+                        setStages(res['stages'])
+                        setIsLoadingData(false)
+                        setCheckStageCurrents(res['checkStageCurrent'])
+                    }
+                }).catch((error)=>{
+                    console.log("Api call error");
+                    alert(error.message);
+                });
             }
-         }).catch((error)=>{
-            console.log("Api call error");
-            alert(error.message);
-         });
+        fetchList();
+        });
+        return unsubscribe;
     }, [])
 
     const [isModalVisible, setModalVisible] = useState(false);
@@ -216,6 +222,30 @@ const Detail = ({ route, navigation }) => {
                         <View style={{flexDirection: 'row', marginTop: SIZES.base}}>
                             <Text style={{color: COLORS.black}}>
                                 {data.NOTE}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+    }
+    function renderPurpose() {
+        if(data.PURPOSE){
+            return (
+                <View style={{flex: 1, marginBottom: SIZES.base*2, borderRadius: SIZES.base*2}}>
+                    <View
+                        style={[{
+                            paddingVertical: 10,
+                            paddingHorizontal: SIZES.base,
+                            backgroundColor: COLORS.white,
+                            borderRadius: SIZES.base
+                        }, styles.shadow]}
+                    >
+                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Mục đích</Text>
+                        <BorderHorizontal/>
+                        <View style={{flexDirection: 'row', marginTop: SIZES.base}}>
+                            <Text style={{color: COLORS.black}}>
+                                {data.PURPOSE}
                             </Text>
                         </View>
                     </View>
@@ -500,7 +530,7 @@ const Detail = ({ route, navigation }) => {
                                     }, styles.profileImg]}
                                 />
                             </View>
-                            {(data.TOTAL_FILE == item.FILE_SIGNATURE) && (
+                            {((item.FILE_SIGNATURE > 0) && (data.TOTAL_FILE == item.FILE_SIGNATURE)) && (
                                 <Image
                                 source={icons.check_green}
                                 resizeMode="cover"
@@ -545,7 +575,7 @@ const Detail = ({ route, navigation }) => {
                             borderRadius: SIZES.base
                         }, styles.shadow]}
                     >
-                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase'}}>Người xét duyệt</Text>
+                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Người xét duyệt</Text>
                         <BorderHorizontal/>
                         <FlatList
                             showsHorizontalScrollIndicator={false}
@@ -558,6 +588,65 @@ const Detail = ({ route, navigation }) => {
                 </View>
             </View>
         )
+    }
+    function renderUserDrive() {
+        if(data.DRIVE){
+            let user = data.DRIVE;
+            let path = user.PATH  ? { uri:user.PATH } : icons.user
+            return (
+                <View>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            paddingVertical: SIZES.base
+                        }}
+                    >
+                        
+                        <View style={{width: width_screen/3, flexDirection: 'row'}}>
+                            <Image
+                                source={icons.driver}
+                                resizeMode="cover"
+                                style= {{
+                                    width: 20,
+                                    height: 20,
+                                    marginRight: SIZES.base
+                                }}
+                            />
+                            <Text style={{...FONTS.body4, fontWeight: 'bold', color: COLORS.black}}>Lái xe</Text>
+                        </View>
+                    </View>
+                    <View style={{paddingVertical: SIZES.base, flexDirection: 'row'}}>
+                    
+                    <View>
+                        <View style={styles.profileImgContainer}>
+                            <Image
+                                source={path}
+                                resizeMode="cover"
+                                style= {[{
+                                    width: 45,
+                                    height: 45,
+                                    marginRight: SIZES.base*2
+                                }, styles.profileImg]}
+                            />
+                        </View>
+                    </View>
+                    <View style={{paddingBottom: SIZES.base}}>
+                        <View style={{flexDirection: 'column'}}>
+                            <Text style={{fontWeight: 'bold', color: COLORS.black}}>{user.LAST_NAME} {user.NAME} </Text>
+                            <View style={{flexDirection: 'row'}}>
+                            <Text style={{...FONTS.body4,fontWeight: 'bold', color: COLORS.black}}>@{user.LOGIN}</Text>
+                            <Dot/>
+                            <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{user.WORK_POSITION ? user.WORK_POSITION : 'Nhân viên'}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+                </View>
+                
+            )
+        }
+           
     }
     function renderUserFollow() {
         if(data.FOLLOW){
@@ -654,6 +743,7 @@ const Detail = ({ route, navigation }) => {
                     paddingVertical: SIZES.base
                 }}
             >
+                
                 <View style={{width: width_screen/3, flexDirection: 'row'}}>
                     <Image
                         source={icon}
@@ -667,7 +757,7 @@ const Detail = ({ route, navigation }) => {
                     <Text style={{...FONTS.body4, fontWeight: 'bold', color: COLORS.black}}>{title}</Text>
                 </View>
                 <View>
-                    <Text style={{color: COLORS.black}}>{value}</Text>
+                    <Text style={{color: COLORS.black, flexWrap: 'wrap'}}>{value}</Text>
                 </View>
             </View>
         )
@@ -716,7 +806,38 @@ const Detail = ({ route, navigation }) => {
         }
         
     }
-
+    function renderInfomationDrive(){
+        let created_at = data.CREATED_BY;
+        
+        if(created_at) {
+            let nameUser = `${created_at['LAST_NAME']} ${created_at['NAME']}`
+            return (
+                <View style={{flexDirection: 'row', marginBottom: SIZES.base*2}}>
+                    {/* Custom Scrollbar */}
+                    <View style={{flex: 1}}>
+                        <View
+                            style={[{
+                                paddingTop: 10,
+                                paddingHorizontal: SIZES.base*2,
+                                backgroundColor: COLORS.white,
+                                borderRadius: SIZES.base
+                            }, styles.shadow]}
+                        >
+                            <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Thông tin Xe Ô Tô</Text>
+                            <BorderHorizontal/>
+                            {itemTaskUser(icons.steering_wheel, 'Loại xe', data.TYPE_CAR  )}
+                            {itemTask(icons.car, 'Xe', data.CAR)}
+                            {itemTask(icons.clock, 'Thời gian đi', data.TIME_START)}
+                            {itemTask(icons.clock, 'Thời gian về', data.TIME_END)}
+                            {itemTask(icons.location, 'Từ địa điểm', data.ADDRESS_START)}
+                            {itemTask(icons.location, 'Đến địa điểm', data.ADDRESS_END)}
+                            {renderUserDrive()}
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+    }
     return (
         <SafeAreaView  style={styles.container}>
             <View style={{flex: 1}}>
@@ -730,6 +851,8 @@ const Detail = ({ route, navigation }) => {
                     nestedScrollEnabled={true}>
                         {/* {renderTitle()} */}
                         {renderInfoTask()}
+                        {(data.ID_RPA == 14) && (renderInfomationDrive())}
+                        {renderPurpose()}
                         {renderNote()}
                         {renderStage()}
                         {(data.TOTAL_FILE > 0) && (renderFileSignature())}
@@ -740,9 +863,7 @@ const Detail = ({ route, navigation }) => {
                 )}
                 
             </View>
-           
             {renderBottomButton()}
-           
             <View>
                 <Modal isVisible={isModalVisible}>
                     <View style={{backgroundColor: COLORS.white, borderRadius: SIZES.padding}}>

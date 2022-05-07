@@ -31,6 +31,7 @@ const Procedure = ({navigation}) => {
                 'page': page,
             };
             POST_DATA(`${url}`, payload ).then(res => {
+                console.log(res)
                 if(res['success'] == 1){
                     setDataSignatures(res['data']);
                     setIsLoadingData(false)
@@ -126,7 +127,7 @@ const Procedure = ({navigation}) => {
                     marginVertical: SIZES.base,
                     borderRadius: SIZES.base, 
                     padding: SIZES.base,
-                    width: width_screen-60,
+                    // width: width_screen-60,
                 }}
                 onPress={()=> navigation.navigate("Detail",{
                     ID_RPA: value.ID_RPA,
@@ -134,7 +135,7 @@ const Procedure = ({navigation}) => {
                 })}
             >
                 <View style={styles.cardShadow}>
-                    <View style={{marginRight: SIZES.base, justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{marginRight: 3, justifyContent: 'center', alignItems: 'center'}}>
                         {value.CREATED_BY && (
                             <>
                             <Avatar.Image size={50} style={{backgroundColor: COLORS.border}} source={path} />

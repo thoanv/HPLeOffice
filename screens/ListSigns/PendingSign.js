@@ -22,46 +22,34 @@ const PendingSign = ({navigation}) => {
     const [empty, setEmpty] = useState(false);
     const [emptyFirst, setEmptyFirst] = useState(false);
     useEffect(() => {
-            const unsubscribe = navigation.addListener('focus', () => {
-                async function fetchList() {
-                    setIsLoadingData(true)
-                    let payload = {
-                        'type' : 'all',
-                        'page': page,
-                    };
-                    let url = '/signature-lists-stage-pending.php';
-                    POST_DATA(`${url}`, payload).then(res => {
-                        if(res['success'] == 1){
-                            if(res['data'].length){
-                                setDataSignatures(res['data']);
-                                setPage(page+1);
-                            }else{
-                                setEmptyFirst(true)
-                            }
-                            setIsLoadingData(false)
+        const unsubscribe = navigation.addListener('focus', () => {
+            async function fetchList() {
+                setIsLoadingData(true)
+                let url = '/signature-lists-stage-pending.php';
+                POST_DATA(`${url}`).then(res => {
+                    if(res['success'] == 1){
+                        if(res['data'].length){
+                            setDataSignatures(res['data']);
+                        }else{
+                            setEmptyFirst(true)
                         }
-                    }).catch((error)=>{
-                        console.log("Api call error");
-                        alert(error.message);
-                    });
-                }
-                fetchList();
-            });
-            return unsubscribe;
+                        setIsLoadingData(false)
+                    }
+                }).catch((error)=>{
+                    console.log("Api call error");
+                    alert(error.message);
+                });
+            }
+            fetchList();
+        });
+        return unsubscribe;
     }, []);
     const fetchData =  () =>  {
-        let pa = 0;
-        let payload = {
-            'type' : 'all',
-            'page': pa,
-        };
         let url = '/signature-lists-stage-pending.php';
-        POST_DATA(`${url}`, payload).then(res => {
-            setPage(pa)
+        POST_DATA(`${url}`).then(res => {
             if(res['success'] == 1){
                 setDataSignatures(res['data']);
             }
-             setPage(pa+1);
             setIsFetching(false);
             setIsLoadingData(false)
          }).catch((error)=>{
@@ -97,10 +85,7 @@ const PendingSign = ({navigation}) => {
                 <FlatList
                     refreshing={isFetching}
                     onRefresh={() => _handleOnRefresh()}
-                    onEndReachedThreshold={0.5}
-                    onEndReached={() => 
-                        _onEndReachedLoad()
-                    }
+                
                     showsHorizontalScrollIndicator={false}
                     renderItem={renderItem}
                     data={dataSignatures}
@@ -122,29 +107,29 @@ const PendingSign = ({navigation}) => {
         setDataSignatures([])
         fetchData();
     }
-    const _onEndReachedLoad = () => {
-        setIsLoading(true)
-        let payload = {
-            'type' : 'all',
-            'page': page,
-        };
-        let url = '/signature-lists-stage-pending.php';
-        POST_DATA(`${url}`, payload).then(res => {
-            if(res['success'] == 1){
-                if(res['data'].length){
-                    const result =  dataSignatures.concat(res['data']);
-                    setDataSignatures(result);
-                    setPage(page+1);
-                }else{
-                    setEmpty(true)
-                }
-            }
-            setIsLoading(false)
-         }).catch((error)=>{
-            console.log("Api call error");
-            alert(error.message);
-        });
-    }
+    // const _onEndReachedLoad = () => {
+    //     setIsLoading(true)
+    //     let payload = {
+    //         'type' : 'all',
+    //         'page': page,
+    //     };
+    //     let url = '/signature-lists-stage-pending.php';
+    //     POST_DATA(`${url}`, payload).then(res => {
+    //         if(res['success'] == 1){
+    //             if(res['data'].length){
+    //                 const result =  dataSignatures.concat(res['data']);
+    //                 setDataSignatures(result);
+    //                 setPage(page+1);
+    //             }else{
+    //                 setEmpty(true)
+    //             }
+    //         }
+    //         setIsLoading(false)
+    //      }).catch((error)=>{
+    //         console.log("Api call error");
+    //         alert(error.message);
+    //     });
+    // }
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#F4F5F7'}}>
             <View style={styles.container}>
