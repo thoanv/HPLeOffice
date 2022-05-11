@@ -39,6 +39,7 @@ const DoNotSign   = ({navigation}) => {
                             setEmptyFirst(true)
                         }
                     }
+                    setIsLoadingData(false)
                  }).catch((error)=>{
                     console.log("Api call error");
                     alert(error.message);
