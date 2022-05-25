@@ -120,7 +120,7 @@ const Signature = ({ route, navigation }) => {
         if(file){
             const source = { uri: file.PATH, cache: true };
             return (
-                <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
                     {/* Custom Scrollbar */}
                     <View style={styles.container}>
                         <View style={styles.pdf}>
@@ -145,15 +145,17 @@ const Signature = ({ route, navigation }) => {
                                     Object.entries(localSignature).map(([key, value]) => {
                                         if(Number(key) == pageCurrent){
                                             return Object.entries(value).map(([key_, value_]) => {
-                                                let x = value_['x']*width_screen/100;
-                                                let y = value_['y']*(height_screen-150)/100;
+                                                let x = value_['x']*(width_screen)/100;
+                                                let y = value_['y']*(height_screen-200)/100;
+                                                let w = value_['w'] ? Number(value_['w'])-50 : 100;
+                                                let h = value_['h'] ? Number(value_['h'])-15 : 50;
                                                 return (
                                                     <View key={Number(key_).toString()} style={{position:'absolute', top: y, left: x, borderColor: 'red', borderWidth: 1, borderStyle: 'dashed',}}>
                                                         <Image 
                                                             source={{uri: signature}}
                                                             style={{
-                                                                width: 100,
-                                                                height: 50
+                                                                width: w,
+                                                                height: h
                                                             }}
                                                         />
                                                     </View>
@@ -393,6 +395,8 @@ const styles = StyleSheet.create({
         flex:1,
         width:width_screen,
         height:height_screen,
+        backgroundColor: '#f1f1f1',
+        marginTop: 0
     }
 })
 
