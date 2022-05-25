@@ -32,6 +32,7 @@ const Detail = ({ route, navigation }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingData, setIsLoadingData] = useState(false);
     const [textInput, setTextInput] = React.useState("");
+    //Call API
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             async function fetchList() {
