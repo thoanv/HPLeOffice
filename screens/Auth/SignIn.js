@@ -188,9 +188,6 @@ const SignIn = ( { navigation } ) => {
             </View>
         )
     }
-    
-
-
     return (
         <SafeAreaView
             behavior={Platform.OS === "ios" ? "padding" : null}
