@@ -11,7 +11,8 @@ import {
     ActivityIndicator,
     Alert,
     Platform,
-    TextInput
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import BorderHorizontal from '../../components/borderHorizontal';
@@ -1052,31 +1053,32 @@ const Detail = ({ route, navigation }) => {
                         )}
                         
                         <BorderHorizontal/>
-                        
-                        <View>
-                            <TextInput
-                                placeholder="Viết bình luận ..."
-                                style={styles.input}
-                                onChangeText={(val) => textInputChange(val)}
-                                value={textInput}
-                            />
-                        </View>
-                        <View style={{marginBottom: SIZES.base}}>
-                            <TouchableOpacity onPress={() => sendComment()}>
-                                <View style={{flexDirection: 'row', backgroundColor: COLORS.primary, width: 60, paddingHorizontal: SIZES.base, alignSelf: 'flex-end', borderRadius: 25, paddingVertical: 5}}>
-                                    <Text style={{color: COLORS.white, paddingRight: 2}}>Gửi</Text>
-                                    <Image 
-                                        source={icons.send}
-                                        resizeMode="cover"
-                                        style= {{
-                                            width: 18,
-                                            height: 18,
-                                            tintColor: COLORS.white
-                                        }}
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                        </View>
+                        <KeyboardAvoidingView>
+                            <View>
+                                <TextInput
+                                    placeholder="Viết bình luận ..."
+                                    style={styles.input}
+                                    onChangeText={(val) => textInputChange(val)}
+                                    value={textInput}
+                                />
+                            </View>
+                            <View style={{marginBottom: SIZES.base}}>
+                                <TouchableOpacity onPress={() => sendComment()}>
+                                    <View style={{flexDirection: 'row', backgroundColor: COLORS.primary, width: 60, paddingHorizontal: SIZES.base, alignSelf: 'flex-end', borderRadius: 25, paddingVertical: 5}}>
+                                        <Text style={{color: COLORS.white, paddingRight: 2}}>Gửi</Text>
+                                        <Image 
+                                            source={icons.send}
+                                            resizeMode="cover"
+                                            style= {{
+                                                width: 18,
+                                                height: 18,
+                                                tintColor: COLORS.white
+                                            }}
+                                        />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </KeyboardAvoidingView>
                     </View>
                     
                 </View>
