@@ -10,7 +10,8 @@ import {
     FlatList,
     ActivityIndicator,
     Alert,
-    Platform
+    Platform,
+    TextInput
 } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import BorderHorizontal from '../../components/borderHorizontal';
@@ -24,9 +25,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 const Detail = ({ route, navigation }) => {
     const [data, setData] = useState([]);
     const [stages, setStages] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [userLogin, setUserLogin] = useState(0);
     const [checkStageCurrents, setCheckStageCurrents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingData, setIsLoadingData] = useState(false);
+    const [textInput, setTextInput] = React.useState("");
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             async function fetchList() {
@@ -37,12 +41,14 @@ const Detail = ({ route, navigation }) => {
                     'rpa' : id_rpa,
                     'task': id_task
                 };
+               
                 let url = `/signature-detail.php`;
                 POST_DATA(`${url}`, payload).then(res => {
-                    console.log(res['data'])
                     if(res['success'] == 1){
                         setData(res['data'])
                         setStages(res['stages'])
+                        setComments(res['comments'])
+                        setUserLogin(res['user_login'])
                         setIsLoadingData(false)
                         setCheckStageCurrents(res['checkStageCurrent'])
                     }
@@ -102,6 +108,7 @@ const Detail = ({ route, navigation }) => {
             alert(error.message);
          });
     }
+    
     const createAlertAccept = (status) => {
         Alert.alert(
             "Thông báo",
@@ -115,6 +122,93 @@ const Detail = ({ route, navigation }) => {
               { text: "Đồng ý", onPress: () => actionChangeStage(status)}
             ]
           );
+    }
+    const sendComment = () => {
+        const comment = textInput;
+        if(comment == ''){
+            Alert.alert(
+                "Thông báo",
+                "Bạn chưa nhập bình luận!",
+                [
+                  {
+                    text: "Hủy",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                  },
+                ]
+            );
+        }else{
+            const id_rpa = route.params.ID_RPA;
+            const id_task = route.params.ID_TASK;
+            let payload = {
+                'comment' : comment,
+                'rpa' : id_rpa,
+                'task': id_task
+            };
+            let url = `/signature-send-comment.php`;
+            POST_DATA(`${url}`, payload).then(res => {
+                const result =  comments.concat(res['comment']);
+                setComments(result);
+                setTextInput('');
+            }).catch((error)=>{
+                console.log("Api call error");
+                alert(error.message);
+            });
+        }
+        
+    }
+    const convertDateTime = (time) => {
+        var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
+        diff = (((new Date()).getTime() - date.getTime()) / 1000),
+        day_diff = Math.floor(diff / 86400);
+
+        if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
+            return;
+
+        return day_diff == 0 && (
+                diff < 60 && "vừa xong" ||
+                diff < 120 && "1 phút trước" ||
+                diff < 3600 && Math.floor( diff / 60 ) + " phút trước" ||
+                diff < 7200 && "1 giờ trước" ||
+                diff < 86400 && Math.floor( diff / 3600 ) + " giờ trước") ||
+            day_diff == 1 && "hôm qua" ||
+            day_diff < 7 && day_diff + " ngày trước" ||
+            day_diff < 31 && Math.ceil( day_diff / 7 ) + " tuần trước";
+    }
+    const textInputChange = (val) => {
+        setTextInput(val);
+    }
+    const deleteComment = (ID) => {
+        Alert.alert(
+            "Thông báo",
+            "Bạn muốn xóa bình luận này",
+            [
+              {
+                text: "Hủy",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "Đồng ý", onPress: () => actionDeleteComment(ID)}
+            ]
+          );
+    }
+    const actionDeleteComment = (ID) => {
+        let payload = {
+            'ID' : ID,
+        };
+        let url = `/signature-delete-comment.php`;
+        POST_DATA(`${url}`, payload).then(res => {
+           if(res['data']){
+                comments.forEach(function(index, value){
+                    if(comments[index]['ID'] === ID){
+                        comments.splice(index, 1);
+                    }
+                });
+           }
+        }).catch((error)=>{
+            console.log("Api call error");
+            alert(error.message);
+        });
     }
     const actionChangeStage = (status) => {
         const stage_current = data.STAGE;
@@ -204,7 +298,7 @@ const Detail = ({ route, navigation }) => {
                 
             </View>
         )
-    }
+    }  
     function renderNote() {
         if(data.NOTE){
             return (
@@ -357,7 +451,7 @@ const Detail = ({ route, navigation }) => {
                     </View>
                    
                     <View>
-                        <Text>{item.NAME}</Text>
+                        <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{item.NAME}</Text>
                         <View style={{flexDirection: 'row', marginBottom: 5}}>
                             <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{item.SIZE}</Text>
                             <Dot/>
@@ -838,6 +932,150 @@ const Detail = ({ route, navigation }) => {
             )
         }
     }
+    function renderComments(){
+        const renderItemComment = ({item})=> {
+            let path = item.PATH  ? { uri:item.PATH } : icons.user
+            if(userLogin == item['user_id']){
+                return (
+                    <View>
+                        <TouchableOpacity onPress={() => deleteComment(item.ID)} style={{paddingTop: SIZES.base, flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: SIZES.base -5}}>
+                            <View style={{flexDirection: 'row'}}>
+                                <View style={{maxWidth: width_screen - 100,paddingBottom: SIZES.base, backgroundColor: COLORS.border, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 8}}>
+                                    <View style={{flexDirection: 'row'}}>
+                                        <Text style={{fontWeight: '400', color: COLORS.black}}>{item.FULLNAME}</Text>
+                                    </View>
+                                    
+                                    <View style={{flexDirection: 'row'}}>
+                                        <Text style={{color: COLORS.darkgrayText}}>{item['DESCRIPTION']}</Text>
+                                    </View>
+                                </View>
+                                <View style={{marginLeft: SIZES.base}}>
+                                    <Image
+                                        source={path}
+                                        resizeMode="cover"
+                                        style= {{
+                                            width: 25,
+                                            height: 25,
+                                            borderColor: COLORS.border,
+                                            borderWidth: 1,
+                                            padding: 1,
+                                            borderRadius: 25,
+                                        }}
+                                    />
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <View style={{marginLeft: SIZES.base*4, marginTop: 0, alignItems: 'flex-end', marginRight: SIZES.base*4}}> 
+                            <Text style={{fontSize: 10}}>{convertDateTime(item['CREATED_TIME'])}</Text>
+                        </View>
+                    </View>
+                    
+                )
+            }else{
+                return (
+                    <View>
+                        <View style={{paddingTop: SIZES.base, flexDirection: 'row', paddingBottom: SIZES.base -5}}>
+                            <View>
+                                <View style={{marginRight: SIZES.base}}>
+                                    <Image
+                                        source={path}
+                                        resizeMode="cover"
+                                        style= {{
+                                            width: 25,
+                                            height: 25,
+                                            borderColor: COLORS.border,
+                                            borderWidth: 1,
+                                            padding: 1,
+                                            borderRadius: 25,
+                                        }}
+                                    />
+                                </View>
+                            </View>
+                            <View style={{maxWidth: width_screen - 100,paddingBottom: SIZES.base, backgroundColor: COLORS.border, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 8}}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Text style={{fontWeight: '400', color: COLORS.black}}>{item.FULLNAME}</Text>
+                                </View>
+                                
+                                <View>
+                                    <Text style={{color: COLORS.darkgrayText}}>{item['DESCRIPTION']}</Text>
+                                </View>
+                            </View>
+                        
+                        </View>
+                        <View style={{marginLeft: SIZES.base*4, marginTop: 0}}> 
+                            <Text style={{fontSize: 10}}>{convertDateTime(item['CREATED_TIME'])}</Text>
+                        </View>
+                    </View>
+                )
+            }
+        }
+        return (
+            <View style={{flexDirection: 'row', marginBottom: SIZES.base*2}}>
+                {/* Custom Scrollbar */}
+                <View style={{flex: 1}}>
+                    <View
+                        style={[{
+                            paddingTop: 10,
+                            paddingHorizontal: SIZES.base*2,
+                            backgroundColor: COLORS.white,
+                            borderRadius: SIZES.base
+                        }, styles.shadow]}
+                    >
+                        <Text style={{...FONTS.body4, fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.black}}>Bình luận</Text>
+                        <BorderHorizontal/>
+                        {comments.length > 0 ? (
+                            <FlatList
+                                showsHorizontalScrollIndicator={false}
+                                renderItem={renderItemComment}
+                                data={comments}
+                                keyExtractor={item => `f${item.ID}`}
+                            />
+                        ) : (
+                            <View style={{justifyContent: 'center', alignItems: 'center', marginTop:10}}>
+                                <Image 
+                                    source={icons.comments}
+                                    resizeMode="cover"
+                                    style= {{
+                                        width: 30,
+                                        height: 30,
+                                        tintColor: COLORS.primary
+                                    }}
+                                />
+                                <Text style={{color: COLORS.black, ...FONTS.body5, marginTop: SIZES.padding}}>Dữ liệu trống</Text>
+                            </View>
+                        )}
+                        
+                        <BorderHorizontal/>
+                        <View>
+                            <TextInput
+                                placeholder="Viết bình luận ..."
+                                style={styles.input}
+                                onChangeText={(val) => textInputChange(val)}
+                                value={textInput}
+                            />
+                        </View>
+                        <View style={{marginBottom: SIZES.base}}>
+                            <TouchableOpacity onPress={() => sendComment()}>
+                                <View style={{flexDirection: 'row', backgroundColor: COLORS.primary, width: 60, paddingHorizontal: SIZES.base, alignSelf: 'flex-end', borderRadius: 25, paddingVertical: 5}}>
+                                    <Text style={{color: COLORS.white, paddingRight: 2}}>Gửi</Text>
+                                    <Image 
+                                        source={icons.send}
+                                        resizeMode="cover"
+                                        style= {{
+                                            width: 18,
+                                            height: 18,
+                                            tintColor: COLORS.white
+                                        }}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                    
+                </View>
+            </View>
+        )
+    }
     return (
         <SafeAreaView  style={styles.container}>
             <View style={{flex: 1}}>
@@ -859,6 +1097,7 @@ const Detail = ({ route, navigation }) => {
                         {(data.COUNTFILEATTACHS > 0) && (renderFileAttach())}
                         {renderUserSignature()}
                         {renderUserFollow()}
+                        {renderComments()}
                     </ScrollView>
                 )}
                 
@@ -1055,7 +1294,17 @@ const styles = StyleSheet.create({
     },
     txt_stage_process:{
         color: COLORS.white
-    }
+    },
+    input: {
+        height: 40,
+        marginTop: 12,
+        marginBottom: 5,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: COLORS.white,
+        borderRadius: 30,
+        backgroundColor: COLORS.gray
+    },
 })
 
 export default Detail;

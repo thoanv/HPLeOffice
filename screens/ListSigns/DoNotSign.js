@@ -31,6 +31,7 @@ const DoNotSign   = ({navigation}) => {
                 };
                 let url = '/signature-lists-by-stage.php';
                 POST_DATA(`${url}`, payload).then(res => {
+                    console.log(res)
                     if(res['success'] == 1){
                         if(res['data'].length){
                             setDataSignatures(res['data']);

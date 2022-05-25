@@ -35,6 +35,7 @@ const open_box = require("../assets/icons/open-box.png");
 const steering_wheel = require("../assets/icons/steering-wheel.png");
 const car = require("../assets/icons/car.png");
 const driver = require("../assets/icons/driver.png");
+const comments = require("../assets/icons/comments.png");
 export default {
     steering_wheel,
     car,
@@ -72,5 +73,6 @@ export default {
     home,
     check,
     position,
-    open_box
+    open_box,
+    comments
 }
