@@ -11,7 +11,8 @@ import {
     ActivityIndicator,
     Alert,
     Platform,
-    TextInput
+    TextInput,
+    KeyboardAvoidingView
 } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import BorderHorizontal from '../../components/borderHorizontal';
@@ -936,80 +937,80 @@ const Detail = ({ route, navigation }) => {
     }
     function renderComments(){
         const renderItemComment = ({item})=> {
-            let path = item.PATH  ? { uri:item.PATH } : icons.user
-            if(userLogin == item['user_id']){
-                return (
-                    <View>
-                        <TouchableOpacity onPress={() => deleteComment(item.ID)} style={{paddingTop: SIZES.base, flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: SIZES.base -5}}>
-                            <View style={{flexDirection: 'row'}}>
+                let path = item.PATH  ? { uri:item.PATH } : icons.user
+                if(userLogin == item['user_id']){
+                    return (
+                        <View>
+                            <TouchableOpacity onPress={() => deleteComment(item.ID)} style={{paddingTop: SIZES.base, flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: SIZES.base -5}}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <View style={{maxWidth: width_screen - 100,paddingBottom: SIZES.base, backgroundColor: COLORS.border, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 8}}>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Text style={{fontWeight: '400', color: COLORS.black}}>{item.FULLNAME}</Text>
+                                        </View>
+                                        
+                                        <View style={{flexDirection: 'row'}}>
+                                            <Text style={{color: COLORS.darkgrayText}}>{item['DESCRIPTION']}</Text>
+                                        </View>
+                                    </View>
+                                    <View style={{marginLeft: SIZES.base}}>
+                                        <Image
+                                            source={path}
+                                            resizeMode="cover"
+                                            style= {{
+                                                width: 25,
+                                                height: 25,
+                                                borderColor: COLORS.border,
+                                                borderWidth: 1,
+                                                padding: 1,
+                                                borderRadius: 25,
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                            <View style={{marginLeft: SIZES.base*4, marginTop: 0, alignItems: 'flex-end', marginRight: SIZES.base*4}}> 
+                                <Text style={{fontSize: 10, color: COLORS.darkgrayText}}>{convertDateTime(item['CREATED_TIME'])}</Text>
+                            </View>
+                        </View>
+                    )
+                }else{
+                    return (
+                        <View>
+                            <View style={{paddingTop: SIZES.base, flexDirection: 'row', paddingBottom: SIZES.base -5}}>
+                                <View>
+                                    <View style={{marginRight: SIZES.base}}>
+                                        <Image
+                                            source={path}
+                                            resizeMode="cover"
+                                            style= {{
+                                                width: 25,
+                                                height: 25,
+                                                borderColor: COLORS.border,
+                                                borderWidth: 1,
+                                                padding: 1,
+                                                borderRadius: 25,
+                                            }}
+                                        />
+                                    </View>
+                                </View>
                                 <View style={{maxWidth: width_screen - 100,paddingBottom: SIZES.base, backgroundColor: COLORS.border, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 8}}>
                                     <View style={{flexDirection: 'row'}}>
                                         <Text style={{fontWeight: '400', color: COLORS.black}}>{item.FULLNAME}</Text>
                                     </View>
                                     
-                                    <View style={{flexDirection: 'row'}}>
+                                    <View>
                                         <Text style={{color: COLORS.darkgrayText}}>{item['DESCRIPTION']}</Text>
                                     </View>
                                 </View>
-                                <View style={{marginLeft: SIZES.base}}>
-                                    <Image
-                                        source={path}
-                                        resizeMode="cover"
-                                        style= {{
-                                            width: 25,
-                                            height: 25,
-                                            borderColor: COLORS.border,
-                                            borderWidth: 1,
-                                            padding: 1,
-                                            borderRadius: 25,
-                                        }}
-                                    />
-                                </View>
+                            
                             </View>
-                        </TouchableOpacity>
-                        <View style={{marginLeft: SIZES.base*4, marginTop: 0, alignItems: 'flex-end', marginRight: SIZES.base*4}}> 
-                            <Text style={{fontSize: 10, color: COLORS.darkgrayText}}>{convertDateTime(item['CREATED_TIME'])}</Text>
-                        </View>
-                    </View>
-                    
-                )
-            }else{
-                return (
-                    <View>
-                        <View style={{paddingTop: SIZES.base, flexDirection: 'row', paddingBottom: SIZES.base -5}}>
-                            <View>
-                                <View style={{marginRight: SIZES.base}}>
-                                    <Image
-                                        source={path}
-                                        resizeMode="cover"
-                                        style= {{
-                                            width: 25,
-                                            height: 25,
-                                            borderColor: COLORS.border,
-                                            borderWidth: 1,
-                                            padding: 1,
-                                            borderRadius: 25,
-                                        }}
-                                    />
-                                </View>
+                            <View style={{marginLeft: SIZES.base*4, marginTop: 0}}> 
+                                <Text style={{fontSize: 10, color: COLORS.darkgrayText}}>{convertDateTime(item['CREATED_TIME'])}</Text>
                             </View>
-                            <View style={{maxWidth: width_screen - 100,paddingBottom: SIZES.base, backgroundColor: COLORS.border, paddingVertical: 5, paddingHorizontal: 10, borderRadius: 8}}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <Text style={{fontWeight: '400', color: COLORS.black}}>{item.FULLNAME}</Text>
-                                </View>
-                                
-                                <View>
-                                    <Text style={{color: COLORS.darkgrayText}}>{item['DESCRIPTION']}</Text>
-                                </View>
-                            </View>
-                        
                         </View>
-                        <View style={{marginLeft: SIZES.base*4, marginTop: 0}}> 
-                            <Text style={{fontSize: 10, color: COLORS.darkgrayText}}>{convertDateTime(item['CREATED_TIME'])}</Text>
-                        </View>
-                    </View>
-                )
-            }
+                    )
+                }
+           
         }
         return (
             <View style={{flexDirection: 'row', marginBottom: SIZES.base*2}}>
@@ -1048,6 +1049,7 @@ const Detail = ({ route, navigation }) => {
                         )}
                         
                         <BorderHorizontal/>
+                        <KeyboardAvoidingView>
                         <View>
                             <TextInput
                                 placeholder="Viết bình luận ..."
@@ -1072,6 +1074,7 @@ const Detail = ({ route, navigation }) => {
                                 </View>
                             </TouchableOpacity>
                         </View>
+                        </KeyboardAvoidingView>
                     </View>
                     
                 </View>
