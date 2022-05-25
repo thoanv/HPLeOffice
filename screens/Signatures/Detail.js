@@ -966,7 +966,7 @@ const Detail = ({ route, navigation }) => {
                             </View>
                         </TouchableOpacity>
                         <View style={{marginLeft: SIZES.base*4, marginTop: 0, alignItems: 'flex-end', marginRight: SIZES.base*4}}> 
-                            <Text style={{fontSize: 10}}>{convertDateTime(item['CREATED_TIME'])}</Text>
+                            <Text style={{fontSize: 10, color: COLORS.darkgrayText}}>{convertDateTime(item['CREATED_TIME'])}</Text>
                         </View>
                     </View>
                     
@@ -1003,7 +1003,7 @@ const Detail = ({ route, navigation }) => {
                         
                         </View>
                         <View style={{marginLeft: SIZES.base*4, marginTop: 0}}> 
-                            <Text style={{fontSize: 10}}>{convertDateTime(item['CREATED_TIME'])}</Text>
+                            <Text style={{fontSize: 10, color: COLORS.darkgrayText}}>{convertDateTime(item['CREATED_TIME'])}</Text>
                         </View>
                     </View>
                 )
