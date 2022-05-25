@@ -83,6 +83,7 @@ const Detail = ({ route, navigation }) => {
             ]
           );
     }
+    //Chuyển trạng thái
     const actionChange = (stage_id) => {
         console.log(stage_id);
         const stage_current = data.STAGE;
@@ -125,6 +126,7 @@ const Detail = ({ route, navigation }) => {
             ]
           );
     }
+    //Gửi comments
     const sendComment = () => {
         const comment = textInput;
         if(comment == ''){
@@ -159,6 +161,7 @@ const Detail = ({ route, navigation }) => {
         }
         
     }
+    //convert thời gian
     const convertDateTime = (time) => {
         var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
         diff = (((new Date()).getTime() - date.getTime()) / 1000),
@@ -180,6 +183,7 @@ const Detail = ({ route, navigation }) => {
     const textInputChange = (val) => {
         setTextInput(val);
     }
+    //Xóa comment
     const deleteComment = (ID) => {
         Alert.alert(
             "Thông báo",
