@@ -563,7 +563,7 @@ const Detail = ({ route, navigation }) => {
                     </View>
                    
                     <View>
-                        <Text>{item.NAME}</Text>
+                        <Text style={{fontWeight: 'bold', color: COLORS.black }}>{item.NAME}</Text>
                         <View style={{flexDirection: 'row', marginBottom: 5}}>
                             <Text style={{...FONTS.body4, color: COLORS.darkgrayText}}>{item.SIZE}</Text>
                             <Dot/>

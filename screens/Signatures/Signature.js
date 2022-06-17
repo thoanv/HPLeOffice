@@ -120,13 +120,13 @@ const Signature = ({ route, navigation }) => {
         if(file){
             const source = { uri: file.PATH, cache: true };
             return (
-                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
+                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', backgroundColor: '#000'}}>
                     {/* Custom Scrollbar */}
-                    <View style={styles.container}>
+                    <View>
                         <View style={styles.pdf}>
                             <Pdf
                                 enablePaging = {true}
-                                ref={(pdf) => { pdf = 2; }}
+                                ref={(pdf) => { pdf = 0; }}
                                 source={source}
                                 onLoadComplete={(numberOfPages,filePath) => {
                                     setTotalPage(numberOfPages);
@@ -140,17 +140,17 @@ const Signature = ({ route, navigation }) => {
                                 onPressLink={(uri) => {
                                     console.log(`Link pressed: ${uri}`);
                                 }}
-                                style={styles.pdf}/>
+                                style={styles.pdfs}/>
                                 {signature !== '' && (
                                     Object.entries(localSignature).map(([key, value]) => {
                                         if(Number(key) == pageCurrent){
                                             return Object.entries(value).map(([key_, value_]) => {
                                                 let x = value_['x']*(width_screen)/100;
-                                                let y = value_['y']*(height_screen-200)/100;
+                                                let y = value_['y']*(height_screen-160)/100;
                                                 let w = value_['w'] ? Number(value_['w'])-50 : 100;
                                                 let h = value_['h'] ? Number(value_['h'])-15 : 50;
                                                 return (
-                                                    <View key={Number(key_).toString()} style={{position:'absolute', top: y, left: x, borderColor: 'red', borderWidth: 1, borderStyle: 'dashed',}}>
+                                                    <View key={Number(key_).toString()} style={{position:'absolute', top: y, left: x, borderColor: 'red', borderWidth: 1, borderStyle: 'dashed', overflow: 'hidden'}}>
                                                         <Image 
                                                             source={{uri: signature}}
                                                             style={{
@@ -172,9 +172,9 @@ const Signature = ({ route, navigation }) => {
                         </View>
                         {totalPage > 1 && (
                             <View style={{flexDirection: 'row',backgroundColor: COLORS.white,paddingHorizontal: 15, borderRadius: 4, paddingVertical: 5, position: 'absolute', bottom: 5, left: '40%', justifyContent: 'center', alignItems: 'center'}}>
-                                <Text style={{fontWeight: 'bold'}}>{pageCurrent ? pageCurrent : 1}</Text>
-                                <Text style={{marginHorizontal: SIZES.base}}>|</Text>
-                                <Text style={{fontWeight: 'bold'}}>{totalPage}</Text>
+                                <Text style={{fontWeight: 'bold', color: COLORS.black}}>{pageCurrent ? pageCurrent : 1}</Text>
+                                <Text style={{marginHorizontal: SIZES.base, color: COLORS.black}}>|</Text>
+                                <Text style={{fontWeight: 'bold', color: COLORS.black}}>{totalPage}</Text>
                             </View>
                         )}
                         {note !== '' && (
@@ -392,11 +392,21 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     pdf: {
-        flex:1,
+        flex: 1,
         width:width_screen,
         height:height_screen,
-        backgroundColor: '#f1f1f1',
-        marginTop: 0
+        position: 'relative',
+        marginTop: 0,
+    },
+    pdfs:{
+        flex: 1,
+        marginTop: 0,
+        width:width_screen,
+        height:height_screen,
+        position: 'relative',
+        justifyContent: 'space-between',
+        backgroundColor: '#000',
+        flexBasis: 1
     }
 })
 
