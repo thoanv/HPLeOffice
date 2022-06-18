@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "469826234944",
-    "project_id": "hpl-eoffice-943d9",
-    "storage_bucket": "hpl-eoffice-943d9.appspot.com"
+    "project_number": "239372691454",
+    "project_id": "hpl-eoffice-notification",
+    "storage_bucket": "hpl-eoffice-notification.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:469826234944:android:73ed1ee2e11d2b42bf4da5",
+        "mobilesdk_app_id": "1:239372691454:android:9aef7f8fb13bf2c2d002af",
         "android_client_info": {
           "package_name": "com.vn.hpleoffice"
         }
       },
       "oauth_client": [
         {
-          "client_id": "469826234944-2ha9renejdaihfienh5ghunpk43r305f.apps.googleusercontent.com",
+          "client_id": "239372691454-19k9fujpogiu0kh4ir5k10jl4c4c1eul.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKucF8qa4iK8V_47udDRzx-eqcXohPs9Y"
+          "current_key": "AIzaSyBZavxkmrCknDPyFMOXAXDMWnv49Hrny5A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "469826234944-2ha9renejdaihfienh5ghunpk43r305f.apps.googleusercontent.com",
+              "client_id": "239372691454-19k9fujpogiu0kh4ir5k10jl4c4c1eul.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
