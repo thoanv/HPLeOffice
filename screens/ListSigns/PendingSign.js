@@ -85,7 +85,6 @@ const PendingSign = ({navigation}) => {
                 <FlatList
                     refreshing={isFetching}
                     onRefresh={() => _handleOnRefresh()}
-                
                     showsHorizontalScrollIndicator={false}
                     renderItem={renderItem}
                     data={dataSignatures}

@@ -75,19 +75,23 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: (data) => {
+      signIn: async data => {
         let username = data.username;
         let password = data.password;
         let payload = `https://id.haiphatland.com.vn/api/password/gfyvhxnueb?username=${username}&pw=${password}`
+        var fcmToken = await AsyncStorage.getItem('fcmToken');
         GET_LOGIN(`${payload}`).then(res => {
           if (res.errors.errorCode === 0) {
             let email = res.userInfo.mail;
+            
             const filed = {
               email: email,
-              username: username
+              username: username,
+              fcmToken: fcmToken
             };
 
             let url = '/login.php';
+            console.log(filed)
             POST_LOGIN(`${url}`, filed).then(response => {
               if (response['success'] == 1) {
                 AsyncStorage.setItem("userToken", response['token']);
