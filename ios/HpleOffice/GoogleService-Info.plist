@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>239372691454-4ov13rpqq3equu45stcr28qjmb4b3lk5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.239372691454-4ov13rpqq3equu45stcr28qjmb4b3lk5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAMJK1cCg9_51OavfBRnvgYil-RWDZms7A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>239372691454</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>vn.com.HPLeOffice</string>
+	<key>PROJECT_ID</key>
+	<string>hpl-eoffice-notification</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hpl-eoffice-notification.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:239372691454:ios:a8e368f058669e5ed002af</string>
+</dict>
+</plist>
