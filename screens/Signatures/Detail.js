@@ -97,7 +97,8 @@ const Detail = ({ route, navigation }) => {
             'rpa' : id_rpa,
             'task': id_task,
             'stage_id_next' : stage_id,
-            'stage_current' : stage_current
+            'stage_current' : stage_current,
+            'notification'  : true,
         };
         console.log(payload);
         let url = `/signature-detail.php`;
