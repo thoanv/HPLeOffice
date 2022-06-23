@@ -38,9 +38,12 @@ const Detail = ({ route, navigation }) => {
                 setIsLoadingData(true)
                 let id_rpa = route.params.ID_RPA;
                 let id_task = route.params.ID_TASK;
+                let flag = route.params.FLAG != undefined ? route.params.FLAG : 0;
+                console.log(flag);
                 let payload = {
                     'rpa' : id_rpa,
-                    'task': id_task
+                    'task': id_task,
+                    'flag': flag
                 };
                
                 let url = `/signature-detail.php`;

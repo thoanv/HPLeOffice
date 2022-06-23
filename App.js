@@ -15,7 +15,7 @@ import Detail from './screens/Signatures/Detail';
 import Signature from './screens/Signatures/Signature';
 import ViewFile from './screens/Signatures/ViewFile';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { GET_LOGIN, POST_LOGIN } from './screens/ultils/api';
+import { GET_LOGIN, POST_LOGIN, POST_DATA } from './screens/ultils/api';
 import { requestUserPermission, notificationListener } from './screens/ultils/notificationServices';
 
 const theme = {
@@ -110,11 +110,25 @@ export default function App({ navigation }) {
       },
       signOut: async () => {
         try {
-          await AsyncStorage.removeItem('userToken');
+          const filed = {
+            fcmToken: true,
+          };
+          console.log(filed);
+          let url = '/logout.php';
+          POST_DATA(`${url}`, filed).then(response => {
+            console.log(response);
+            if (response['success'] == 1) {
+              AsyncStorage.removeItem('userToken');
+              dispatch({ type: 'SIGN_OUT' });
+            }
+          }).catch((error) => {
+            console.log("Api call error");
+            alert(error.message);
+          });
+          
         } catch (e) {
           console.log(e);
         }
-        dispatch({ type: 'SIGN_OUT' });
       },
       signUp: async (data) => {
         dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
