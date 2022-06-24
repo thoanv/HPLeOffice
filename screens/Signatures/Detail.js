@@ -39,7 +39,7 @@ const Detail = ({ route, navigation }) => {
                 let id_rpa = route.params.ID_RPA;
                 let id_task = route.params.ID_TASK;
                 let flag = route.params.FLAG != undefined ? route.params.FLAG : 0;
-                console.log(flag);
+            
                 let payload = {
                     'rpa' : id_rpa,
                     'task': id_task,
@@ -48,6 +48,8 @@ const Detail = ({ route, navigation }) => {
                
                 let url = `/signature-detail.php`;
                 POST_DATA(`${url}`, payload).then(res => {
+                    console.log(res)
+
                     if(res['success'] == 1){
                         setData(res['data'])
                         setStages(res['stages'])
@@ -98,7 +100,7 @@ const Detail = ({ route, navigation }) => {
             'task': id_task,
             'stage_id_next' : stage_id,
             'stage_current' : stage_current,
-            'notification'  : true,
+            
         };
         console.log(payload);
         let url = `/signature-detail.php`;
@@ -232,7 +234,8 @@ const Detail = ({ route, navigation }) => {
             'rpa' : id_rpa,
             'task': id_task,
             'stage_current' : stage_current,
-            'stage_status' : stage_status
+            'stage_status' : stage_status,
+            'notification'  : 1,
         };
         console.log(payload);
         let url = `/signature-detail.php`;
