@@ -33,6 +33,7 @@ const Procedure = ({navigation}) => {
             POST_DATA(`${url}`, payload ).then(res => {
                 console.log(res)
                 if(res['success'] == 1){
+                    if(res['data'].length <5) setEmpty(true)
                     setDataSignatures(res['data']);
                     setIsLoadingData(false)
                     setPage(page+1);
@@ -105,9 +106,8 @@ const Procedure = ({navigation}) => {
                     setDataSignatures(result);
                     setPage(page+1);
                 }else{
-                    setEmpty(true)
+                    setEmpty(false)
                 }
-                
             }
             setIsLoading(false)
          }).catch((error)=>{
@@ -296,9 +296,7 @@ const Procedure = ({navigation}) => {
                     renderItem={renderItem}
                     data={dataSignatures}
                     keyExtractor={item => `a${item.ID_RPA}`}
-                    ListFooterComponent={() => (empty == true ? 
-                        <View style={{justifyContent:'center', alignItems: 'center'}}><Text>Dữ liệu trống</Text></View> 
-                        : <PlaceholderItem/>)}
+                    
                 />
             </View>
         )
@@ -322,9 +320,9 @@ const Procedure = ({navigation}) => {
                     ):(
                         renderDataSection()
                     )} 
-                    {isLoading == true && (
+                    {/* {isLoading == true && (
                         <PlaceholderItem />
-                    )}
+                    )} */}
                     
                 </View>
             </SafeAreaView>

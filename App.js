@@ -14,10 +14,11 @@ import List from './screens/Signatures/List';
 import Detail from './screens/Signatures/Detail';
 import Signature from './screens/Signatures/Signature';
 import ViewFile from './screens/Signatures/ViewFile';
-import { Provider as PaperProvider } from 'react-native-paper';
-import { GET_LOGIN, POST_LOGIN, POST_DATA } from './screens/ultils/api';
+// import { Provider as PaperProvider } from 'react-native-paper';
+import { GET_LOGIN, POST_LOGIN, POST_DATA, GET_DATA } from './screens/ultils/api';
 import { requestUserPermission, notificationListener } from './screens/ultils/notificationServices';
-
+import { Provider } from 'react-redux';
+import { store } from  './screens/redux/store'; 
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -26,6 +27,7 @@ const theme = {
   }
 }
 const Stack = createStackNavigator();
+
 export default function App({ navigation }) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -48,6 +50,7 @@ export default function App({ navigation }) {
             isSignout: true,
             userToken: null,
           };
+      
       }
     },
     {
@@ -62,6 +65,7 @@ export default function App({ navigation }) {
       let userToken;
       try {
         userToken = await AsyncStorage.getItem('userToken');
+        
       } catch (e) {
         // Restoring token failed
       }
@@ -71,7 +75,7 @@ export default function App({ navigation }) {
     bootstrapAsync();
     requestUserPermission();
     notificationListener();
-  }, []);
+    }, []);
 
   const authContext = React.useMemo(
     () => ({
@@ -113,7 +117,6 @@ export default function App({ navigation }) {
           const filed = {
             fcmToken: true,
           };
-          console.log(filed);
           let url = '/logout.php';
           POST_DATA(`${url}`, filed).then(response => {
             console.log(response);
@@ -141,7 +144,7 @@ export default function App({ navigation }) {
     return <Splash />;
   }
   return (
-    <PaperProvider>
+    <Provider store={store}>
       <AuthContext.Provider value={authContext}>
         <NavigationContainer theme={theme}>
           <Stack.Navigator>
@@ -162,7 +165,7 @@ export default function App({ navigation }) {
           </Stack.Navigator>
         </NavigationContainer>
       </AuthContext.Provider>
-    </PaperProvider>
+    </Provider>
   );
 }
 

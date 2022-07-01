@@ -89,9 +89,7 @@ const PendingSign = ({navigation}) => {
                     renderItem={renderItem}
                     data={dataSignatures}
                     keyExtractor={(item, index) => `${item.ID_RPA}t${item.ID_TASK}${index}`}
-                    ListFooterComponent={() => (empty == true ? 
-                        <View style={{justifyContent:'center', alignItems: 'center'}}><Text>Dữ liệu trống</Text></View> 
-                    : <PlaceholderItem/>)}
+                    
                 />
             )}
             </View>

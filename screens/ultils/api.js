@@ -54,7 +54,6 @@ exports.GET_DATA = function(url) {
         'Authorization': 'Bearer ' + token,
       },
     }).then((res) => {
-      console.log(res)
       return res.json()
     }).then((responseData) => {
       return resolve(responseData);

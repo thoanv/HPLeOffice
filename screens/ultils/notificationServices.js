@@ -1,6 +1,8 @@
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showError } from './helperFunctions';
+import { useDispatch } from 'react-redux';
+import { updateNumberNotify } from '../redux/actions/updateNumberNotifyAction';
 
 export async function requestUserPermission() {
     const authStatus = await messaging().requestPermission();
@@ -36,7 +38,7 @@ export const notificationListener = async () => {
         console.log('Notification caused app to open from background state:', remoteMessage.notification);
     });
     messaging().onMessage(async remoteMessage => {
-        console.log("recived in foreground", remoteMessage)
+        
     })
     messaging()
         .getInitialNotification()

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Image,
@@ -10,10 +10,24 @@ import TabTops from "./tabTop";
 import Notification from '../screens/Notification';
 import Procedure from '../screens/Procedure';
 import { COLORS, icons, FONTS } from '../constants';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { updateNumberNotify } from "../screens/redux/actions/updateNumberNotifyAction";
+import { GET_DATA } from '../screens/ultils/api';
 const Tab = createBottomTabNavigator()
 
 const Tabs = () => {
+    const dispatch = useDispatch();
+    const number  = useSelector((state) => state.numberNotify)
+    useEffect(() => {
+        let url = `/count-notification.php`;
+        GET_DATA(`${url}`)
+        .then(res => {
+            if (res['success'] == 1) {
+                dispatch(updateNumberNotify(res['countNotify']))
+            }
+        })
+     
+    });
     return (
         <Tab.Navigator
             screenOptions={{
@@ -81,6 +95,12 @@ const Tabs = () => {
                                     tintColor: focused ? COLORS.primary : COLORS.black
                                 }}
                             />
+                            {number.number > 0 && (
+                                <View style={{width: 20, height: 20, backgroundColor: COLORS.red, position: 'absolute', top: -5, right: 8, borderRadius: 10, justifyContent: "center",alignItems: "center",}}>
+                                    <Text style={{color: COLORS.white, fontSize: 12, textAlign: 'center'}}>{number.number}</Text>
+                                </View>
+                            )}
+                            
                             <Text style={{color: focused ? COLORS.primary : COLORS.black, ...FONTS.body5}}>
                                 Thông báo
                             </Text>
